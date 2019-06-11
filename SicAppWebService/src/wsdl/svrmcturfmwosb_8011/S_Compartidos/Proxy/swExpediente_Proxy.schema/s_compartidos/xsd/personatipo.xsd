@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/persona/personaTipo" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/persona/personaTipo">
+    <xsd:complexType name="PERSONATIPO">
+        <xsd:sequence>
+            <xsd:element name="TIPO_PERSONA">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="PERSONA_NATURAL">
+                            <xsd:complexType>
+                                <xsd:attribute name="DES_PRIMNOMB" type="xsd:string"/>
+                                <xsd:attribute name="DES_SEGUNOMB" type="xsd:string"/>
+                                <xsd:attribute name="DES_APELPATE" type="xsd:string"/>
+                                <xsd:attribute name="DES_APELMATE" type="xsd:string"/>
+                                <xsd:attribute name="FEC_NACI" type="xsd:string"/>
+                                <xsd:attribute name="ID_GENERO" type="xsd:integer"/>
+                                <xsd:attribute name="ID_ESTACIVIL" type="xsd:integer"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="PERSONA_JURIDICA">
+                            <xsd:complexType>
+                                <xsd:attribute name="DES_NOMBCOME" type="xsd:string"/>
+                                <xsd:attribute name="DES_PERSORGA" type="xsd:string"/>
+                                <xsd:attribute name="DES_GRUPEMPR" type="xsd:string"/>
+                                <xsd:attribute name="ID_TIPOEMPR" type="xsd:integer"/>
+                                <xsd:attribute name="ID_TIPOORGA" type="xsd:integer"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:choice>
+                    <xsd:attribute name="ID_TIPOPERS" type="xsd:integer"/>
+                    <xsd:attribute name="DES_TIPOPERS" type="xsd:string"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DOCUMENTOSIDENTIFICACION" type="DOCUMENTOIDENTIFICACIONCOLECCIONTIPO"/>
+            <xsd:element name="ROLES" type="ROLPERSONACOLECCIONTIPO"/>
+        </xsd:sequence>
+        <xsd:attribute name="ID_PERS" type="xsd:integer"/>
+        <xsd:attribute name="ID_PERS_MINCETUR" type="xsd:integer"/>
+        <xsd:attribute name="DES_PERS" type="xsd:string"/>
+        <xsd:attribute name="DES_TELFFIJO" type="xsd:string"/>
+        <xsd:attribute name="DES_TELFCELULAR" type="xsd:string"/>
+        <xsd:attribute name="DES_TELFFAX" type="xsd:string"/>
+        <xsd:attribute name="DES_CORREO" type="xsd:string"/>
+        <xsd:attribute name="DES_UBIGEO" type="xsd:string"/>
+        <xsd:attribute name="ID_VIA" type="xsd:integer"/>
+        <xsd:attribute name="DES_VIA" type="xsd:string"/>
+        <xsd:attribute name="ID_ZONA" type="xsd:integer"/>
+        <xsd:attribute name="DES_ZONA" type="xsd:string"/>
+        <xsd:attribute name="DES_UBICAEXT" type="xsd:string"/>
+        <xsd:attribute name="DES_UBICAINTE" type="xsd:string"/>
+        <xsd:attribute name="DES_DIRECCION" type="xsd:string"/>
+        <xsd:attribute name="DES_CARGOREP" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="DOCUMENTOIDENTIFICACIONCOLECCIONTIPO">
+        <xsd:sequence>
+            <xsd:element name="DOCUMENTOIDENTIFICACION" type="DOCUMENTOIDENTIFICACIONTIPO" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ROLPERSONACOLECCIONTIPO">
+        <xsd:sequence>
+            <xsd:element name="ROLPERSONA" type="ROLPERSONATIPO" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="DOCUMENTOIDENTIFICACIONTIPO">
+        <xsd:attribute name="ID_TIPOIDEN" type="xsd:integer"/>
+        <xsd:attribute name="DES_TIPOIDEN" type="xsd:string"/>
+        <xsd:attribute name="COD_IDEN" type="xsd:string"/>
+        <xsd:attribute name="FEC_DESDE" type="xsd:string"/>
+        <xsd:attribute name="FEC_HASTA" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="ROLPERSONATIPO">
+        <xsd:attribute name="ID_TROLPERS" type="xsd:integer"/>
+        <xsd:attribute name="DES_TROLPERS" type="xsd:string"/>
+        <xsd:attribute name="COD_TROLPERS" type="xsd:string"/>
+        <xsd:attribute name="DES_NOTAS" type="xsd:string"/>
+        <xsd:attribute name="FEC_DESDE" type="xsd:string"/>
+        <xsd:attribute name="FEC_HASTA" type="xsd:string"/>
+    </xsd:complexType>
+</xsd:schema>

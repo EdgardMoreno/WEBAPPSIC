@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N0:definitions targetNamespace="http://www.stellent.com/GetFile/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://www.stellent.com/GetFile/" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.stellent.com/GetFile/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.stellent.com/GetFile/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+      <s:element name="GetFileByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="dID" type="s:int"/>
+            <s:element maxOccurs="1" minOccurs="0" name="rendition" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="extraProps" type="s0:IdcPropertyList"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="GetFileByIDResult" type="s0:GetFileByIDResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetFileByIDResult">
+        <s:sequence>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="FileInfo" type="s0:FileInfo"/>
+          <s:element maxOccurs="1" minOccurs="0" name="downloadFile" type="s0:IdcFile"/>
+          <s:element maxOccurs="1" minOccurs="0" name="StatusInfo" type="s0:StatusInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFileByName">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="dDocName" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="revisionSelectionMethod" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="rendition" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="0" name="extraProps" type="s0:IdcPropertyList"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileByNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="GetFileByNameResult" type="s0:GetFileByNameResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetFileByNameResult">
+        <s:sequence>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="FileInfo" type="s0:FileInfo"/>
+          <s:element maxOccurs="1" minOccurs="0" name="downloadFile" type="s0:IdcFile"/>
+          <s:element maxOccurs="1" minOccurs="0" name="StatusInfo" type="s0:StatusInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FileInfo">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocTitle" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocType" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocAuthor" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dSecurityGroup" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocAccount" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dID" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dRevClassID" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dRevisionID" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dRevLabel" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dIsCheckedOut" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dCheckoutUser" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dCreateDate" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dInDate" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dOutDate" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dStatus" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dReleaseState" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dFlag1" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dWebExtension" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dProcessingState" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dMessage" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dReleaseDate" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dRendition1" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dRendition2" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dIndexerState" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dPublishType" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dPublishState" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dDocID" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dIsPrimary" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dIsWebFormat" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dLocation" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dOriginalName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dFormat" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dExtension" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="dFileSize" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="CustomDocMetaData" type="s0:IdcPropertyList"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StatusInfo">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="statusCode" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="statusMessage" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IdcPropertyList">
+        <s:sequence>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="property" type="s0:IdcProperty"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IdcProperty">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="name" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="value" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IdcFile">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="fileName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="fileContent" type="s:base64Binary"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="GetFileByIDSoapIn">
+    <WL5G3N0:part element="WL5G3N1:GetFileByID" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetFileByIDSoapOut">
+    <WL5G3N0:part element="WL5G3N1:GetFileByIDResponse" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetFileByNameSoapIn">
+    <WL5G3N0:part element="WL5G3N1:GetFileByName" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="GetFileByNameSoapOut">
+    <WL5G3N0:part element="WL5G3N1:GetFileByNameResponse" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="GetFileSoap">
+    <WL5G3N0:operation name="GetFileByID">
+      <WL5G3N0:input message="WL5G3N1:GetFileByIDSoapIn"/>
+      <WL5G3N0:output message="WL5G3N1:GetFileByIDSoapOut"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetFileByName">
+      <WL5G3N0:input message="WL5G3N1:GetFileByNameSoapIn"/>
+      <WL5G3N0:output message="WL5G3N1:GetFileByNameSoapOut"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="GetFileSoap" type="WL5G3N1:GetFileSoap">
+    <WL5G3N2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="GetFileByID">
+      <WL5G3N2:operation soapAction="http://www.stellent.com/GetFile/" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N2:body use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N2:body use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="GetFileByName">
+      <WL5G3N2:operation soapAction="http://www.stellent.com/GetFile/" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N2:body use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N2:body use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="GetFile">
+    <WL5G3N0:port binding="WL5G3N1:GetFileSoap" name="GetFileSoap">
+      <WL5G3N2:address location="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swGetFile_Proxy"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>

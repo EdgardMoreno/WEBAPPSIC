@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wsdl:definitions
+    
+     targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/bpmEvaluacion"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:tns="http://xmlns.oracle.com/bpmn/bpmnProcess/bpmEvaluacion"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns6="http://mincetur.gob.pe/SIC/expediente/solicitudRM"
+     xmlns:tns7="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    >
+    <wsdl:documentation>
+        <abstractWSDL>http://LSMCTW-ORA-02-D1:8001/soa-infra/services/default/BPM!1.02/bpmEvaluacion.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="bpmEvaluacionPortTypePartnerLinkType">
+        <plnk:role name="bpmEvaluacionPortTypeProvider">
+            <plnk:portType name="tns:bpmEvaluacionPortType"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/bpmEvaluacion">
+            <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/solicitudRM" schemaLocation="http://172.16.0.115:8001/soa-infra/services/default/BPM/bpmEvaluacion.service?XSD=xsd/getSolicitudTupaRM.xsd"/>
+            <xsd:import namespace="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo" schemaLocation="http://172.16.0.115:8001/soa-infra/services/default/BPM/bpmEvaluacion.service?XSD=xsd/accionSolicitudTipo.xsd"/>
+            <xsd:element name="catchAPELACIO">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tns7:ACCIONSOLICITUD"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="catchDESESTIM">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tns7:ACCIONSOLICITUD"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="inicioBpmEvaluacion">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tns6:getSolicitudTupaRM"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="catchRECONSID">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tns7:ACCIONSOLICITUD"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="catchNotificarEventoFinanciero">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="correlation" type="xsd:string"/>
+                        <xsd:element name="parametro1" type="xsd:string"/>
+                        <xsd:element name="parametro2" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="cacthNotificarEventoTecnico">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="correlation" type="xsd:string"/>
+                        <xsd:element name="parametro1" type="xsd:string"/>
+                        <xsd:element name="parametro2" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="inicioBpmEvaluacion">
+        <wsdl:part name="parameters" element="tns:inicioBpmEvaluacion"/>
+    </wsdl:message>
+    <wsdl:message name="catchDESESTIM">
+        <wsdl:part name="parameters" element="tns:catchDESESTIM"/>
+    </wsdl:message>
+    <wsdl:message name="catchAPELACIO">
+        <wsdl:part name="parameters" element="tns:catchAPELACIO"/>
+    </wsdl:message>
+    <wsdl:message name="catchRECONSID">
+        <wsdl:part name="parameters" element="tns:catchRECONSID"/>
+    </wsdl:message>
+    <wsdl:message name="cacthNotificarEventoTecnico">
+        <wsdl:part name="parameters" element="tns:cacthNotificarEventoTecnico"/>
+    </wsdl:message>
+    <wsdl:message name="catchNotificarEventoFinanciero">
+        <wsdl:part name="parameters" element="tns:catchNotificarEventoFinanciero"/>
+    </wsdl:message>
+    <wsdl:portType name="bpmEvaluacionPortType">
+        <wsdl:operation name="inicioBpmEvaluacion">
+            <wsdl:input message="tns:inicioBpmEvaluacion"/>
+        </wsdl:operation>
+        <wsdl:operation name="catchDESESTIM">
+            <wsdl:input message="tns:catchDESESTIM"/>
+        </wsdl:operation>
+        <wsdl:operation name="catchAPELACIO">
+            <wsdl:input message="tns:catchAPELACIO"/>
+        </wsdl:operation>
+        <wsdl:operation name="catchRECONSID">
+            <wsdl:input message="tns:catchRECONSID"/>
+        </wsdl:operation>
+        <wsdl:operation name="cacthNotificarEventoTecnico">
+            <wsdl:input message="tns:cacthNotificarEventoTecnico"/>
+        </wsdl:operation>
+        <wsdl:operation name="catchNotificarEventoFinanciero">
+            <wsdl:input message="tns:catchNotificarEventoFinanciero"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="bpmEvaluacionBinding" type="tns:bpmEvaluacionPortType">
+        <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="inicioBpmEvaluacion">
+            <wsdlsoap:operation style="document" soapAction="inicioBpmEvaluacion"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="catchDESESTIM">
+            <wsdlsoap:operation style="document" soapAction="catchDESESTIM"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="catchAPELACIO">
+            <wsdlsoap:operation style="document" soapAction="catchAPELACIO"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="catchRECONSID">
+            <wsdlsoap:operation style="document" soapAction="catchRECONSID"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="cacthNotificarEventoTecnico">
+            <wsdlsoap:operation style="document" soapAction="cacthNotificarEventoTecnico"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="catchNotificarEventoFinanciero">
+            <wsdlsoap:operation style="document" soapAction="catchNotificarEventoFinanciero"/>
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="bpmEvaluacion.service">
+        <wsdl:port name="bpmEvaluacionPort" binding="tns:bpmEvaluacionBinding">
+            <wsdlsoap:address location="http://172.16.0.115:8001/soa-infra/services/default/BPM/bpmEvaluacion.service"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

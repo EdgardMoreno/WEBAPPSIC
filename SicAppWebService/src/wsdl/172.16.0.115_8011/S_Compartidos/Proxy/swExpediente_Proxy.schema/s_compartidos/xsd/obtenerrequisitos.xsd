@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+  <xsd:element name="OBTENERREQUISITOSMC" type="OBTENERREQUISITOSMCTIPO"/>
+  <xsd:complexType name="OBTENERREQUISITOSMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="OBTENERREQUISITOSDC">
+        <xsd:complexType>
+          <xsd:attribute name="ID_PERS" type="xsd:integer"/>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_SCLASEEVEN" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OBTENERREQUISITOSMR" type="OBTENERREQUISITOSMRTIPO"/>
+  <xsd:complexType name="OBTENERREQUISITOSMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITOS" type="REQUISITOCOLECCIONTIPO"/>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="REQUISITO" type="REQUISITOTIPO"/>
+  <xsd:element name="REQUISITOASOCIADO" type="REQUISITOASOCIADOTIPO"/>
+  <xsd:complexType name="REQUISITOASOCIADOTIPO">
+          <xsd:attribute name="ID_STIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="COD_GRUPO" type="xsd:string"/>          
+          <xsd:attribute name="COD_SCLASEEVENASOC" type="xsd:string"/>            
+          <xsd:attribute name="DES_STIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="COD_STIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="ID_TIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="DES_TIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="COD_TIPODOCU" type="xsd:string"/>      
+          <xsd:attribute name="FLG_VIGENCIA" type="xsd:integer"/>
+          <xsd:attribute name="FLG_DATOS" type="xsd:integer"/>
+          <xsd:attribute name="DES_URLFORMDATOS" type="xsd:string"/>
+          <xsd:attribute name="FLG_IMPORTAEXCEL" type="xsd:integer"/>
+          <xsd:attribute name="FLG_TIENEDOCBINARIO" type="xsd:integer"/>
+          <xsd:attribute name="DES_URIEXCEL" type="xsd:string"/>
+          <xsd:attribute name="COD_TIPOEXCEL" type="xsd:string"/>     
+          <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+          <xsd:attribute name="FLG_ESTAREQU" type="xsd:integer"/>
+          <xsd:attribute name="DES_LOCAURI" type="xsd:string"/>
+          <xsd:attribute name="DES_FECHA" type="xsd:string"/>
+          <xsd:attribute name="DES_SUMILLA" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="REQUISITOTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITOSASOCIADO" type="REQUISITOASOCIADOCOLECCIONTIPO" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="ID_STIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="COD_GRUPO" type="xsd:string"/>          
+          <xsd:attribute name="COD_SCLASEEVENASOC" type="xsd:string"/>            
+          <xsd:attribute name="DES_STIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="COD_STIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="ID_TIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="DES_TIPODOCU" type="xsd:string"/>
+          <xsd:attribute name="COD_TIPODOCU" type="xsd:string"/>      
+          <xsd:attribute name="FLG_VIGENCIA" type="xsd:integer"/>
+          <xsd:attribute name="FLG_DATOS" type="xsd:integer"/>
+          <xsd:attribute name="DES_URLFORMDATOS" type="xsd:string"/>
+          <xsd:attribute name="FLG_IMPORTAEXCEL" type="xsd:integer"/>
+          <xsd:attribute name="FLG_TIENEDOCBINARIO" type="xsd:integer"/>
+          <xsd:attribute name="DES_URIEXCEL" type="xsd:string"/>
+          <xsd:attribute name="COD_TIPOEXCEL" type="xsd:string"/>     
+          <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+          <xsd:attribute name="FLG_ESTAREQU" type="xsd:integer"/>
+          <xsd:attribute name="DES_LOCAURI" type="xsd:string"/>
+          <xsd:attribute name="DES_FECHA" type="xsd:string"/>
+          <xsd:attribute name="DES_SUMILLA" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="REQUISITOCOLECCIONTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITO" maxOccurs="unbounded" type="REQUISITOTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="REQUISITOSASOCIADOS" type="REQUISITOASOCIADOCOLECCIONTIPO"/>
+  <xsd:complexType name="REQUISITOASOCIADOCOLECCIONTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITOASOCIADO" maxOccurs="unbounded" minOccurs="1" type="REQUISITOASOCIADOTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/ejecutarAccionMC" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns="http://mincetur.gob.pe/SIC/expediente/ejecutarAccionMC" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR" xmlns:bpm="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FaccionSolicitudTipo"/>
+  <xsd:import schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR" namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR"/>
+  <xsd:element name="EJECUTARACCIONMC" type="EJECUTARACCIONMCTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="EJECUTARACCIONMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="DOCUMENTO" type="doc:DOCUMENTOTIPO" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="COD_EXPE" type="xsd:string"/>
+    <xsd:attribute name="DES_NOTAS" type="xsd:string"/>
+    <xsd:attribute name="NUM_DIAS" type="xsd:integer"/>
+    <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+    <xsd:attribute name="COD_OPCION" type="xsd:string"/>
+    <xsd:attribute name="ID_TAREADESDE" type="xsd:integer"/>
+  </xsd:complexType>
+  <xsd:element name="DOCUMENTOADJUNTO" type="bpm:DOCUMENTOACCIONTIPO"/>
+  <xsd:element name="GUARDARDOCUMENTOSMR" type="GUARDARDOCUMENTOSMRTIPO"/>
+  <xsd:complexType name="GUARDARDOCUMENTOSMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="DOCUMENTOS">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DOCUMENTOADJUNTO" type="bpm:DOCUMENTOACCIONTIPO" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

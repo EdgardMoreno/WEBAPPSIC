@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/utilitarios/errorMR">   
+<xsd:element name="SICERRORMR">     
+<xsd:annotation>       
+<xsd:documentation>         
+A sample element       
+</xsd:documentation>     
+</xsd:annotation>     
+<xsd:complexType>       
+<xsd:sequence>         
+<xsd:element name="ERROR" type="SICERROR"/>       
+</xsd:sequence>     
+</xsd:complexType>   
+</xsd:element>   
+<xsd:complexType name="SICERROR">   
+<xsd:attribute name="ID_ERROR" type="xsd:int"/>       
+<xsd:attribute name="DES_ERROR" type="xsd:string"/>       
+<xsd:attribute name="FEC_ERROR" type="xsd:string"/>     
+</xsd:complexType> 
+</xsd:schema>

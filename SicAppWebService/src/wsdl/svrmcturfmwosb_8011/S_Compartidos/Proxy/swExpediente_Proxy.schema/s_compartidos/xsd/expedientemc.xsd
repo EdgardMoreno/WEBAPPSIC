@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/expedienteMC" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:solMC="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" xmlns:greMC="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" xmlns:gSol="http://mincetur.gob.pe/SIC/expediente/guardarSolicitud" xmlns:envMC="http://mincetur.gob.pe/SIC/expediente/enviarSolicitud" xmlns:obtReqMC="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" xmlns:obrMC="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" xmlns:abrEMC="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" xmlns:regEstEve="http://mincetur.gob.pe/SIC/expediente/registrarEstadoEvento" xmlns:creSolMC="http://mincetur.gob.pe/SIC/expediente/crearSolicitud" xmlns:obtReqSolMC="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" xmlns:ejeAcc="http://mincetur.gob.pe/SIC/expediente/ejecutarAccionMC" xmlns:insp="http://mincetur.gob.pe/SIC/expediente/crearInspeccion" xmlns="http://mincetur.gob.pe/SIC/expediente/expedienteMC">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerSolicitud"/>
+  <xsd:import schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FregistrarEstadoEvento" namespace="http://mincetur.gob.pe/SIC/expediente/registrarEstadoEvento"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FguardarRequisito"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerDetalleRequisito"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FabrirExpediente"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/enviarSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FenviarSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/guardarSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FguardarSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/crearSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FcrearSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRequerimientosSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/ejecutarAccionMC" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FejecutarAccionMC"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRequisitos"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/crearInspeccion" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FcrearInspeccion"/>
+  <xsd:element name="OBTENERSOLICITUD_MC" type="solMC:OBTENERSOLICITUDMCTIPO"/>
+  <xsd:element name="REGISTRARESTADOEVENTO_MC" type="regEstEve:REGISTRARESTADOEVENTOMCTIPO"/>
+  <xsd:element name="GUARDARREQUISITO_MC" type="greMC:GUARDARREQUISITOMCTIPO"/>
+  <xsd:element name="OBTENERDETALLEREQUISITO_MC" type="obrMC:OBTENERDETALLEREQUISITOMCTIPO"/>
+  <xsd:element name="ABRIREXPEDIENTE_MC" type="abrEMC:ABRIREXPEDIENTEMCTIPO"/>
+  <xsd:element name="ENVIARSOLICITUD_MC" type="envMC:ENVIARSOLICITUDMCTIPO"/>
+  <xsd:element name="GUARDARSOLICITUD_MC" type="gSol:GUARDARSOLICITUDMCTIPO"/>
+  <xsd:element name="CREARSOLICITUD_MC" type="creSolMC:CREARSOLICITUDMCTIPO"/>
+  <xsd:element name="OBTENERREQUERIMIENTOSSOLICITUD_MC" type="obtReqSolMC:OBTENERREQUERIMIENTOSSOLICITUDMCTIPO"/>
+  <xsd:element name="EJECUTARACCION_MC" type="ejeAcc:EJECUTARACCIONMCTIPO"/>
+  <xsd:element name="OBTENERREQUISITOS_MC" type="obtReqMC:OBTENERREQUISITOSMCTIPO"/>
+  <xsd:element name="REFRESCARPANEL_MC"/>
+  <xsd:element name="CREARINSPECCION_MC" type="insp:INSPECCIONTIPO"/>
+
+</xsd:schema>

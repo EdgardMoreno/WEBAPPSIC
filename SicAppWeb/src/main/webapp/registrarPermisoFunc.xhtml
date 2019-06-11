@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"  >    
+    
+    
+    <ui:composition template="./templates/templatePrincipal.xhtml">
+        
+        <ui:define name="header">            
+            <script>
+
+            </script>       
+
+        </ui:define>
+        
+        <ui:define name="content">
+                
+            <div class="container">
+
+                <div class="page-header" >
+                    <h3>Registrar Permiso Funcionario</h3>
+                </div>
+
+                <p:growl id="message" showDetail="true" />
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <h:outputLabel value="*FUNCIONARIO:"/>
+                            <h:selectOneMenu id="somFuncionarios" value="#{funcionarioController.objPermiso.sic5perspermPK.idPers}" style="width:100%" styleClass="form-control">
+                                <f:selectItem itemLabel="-- Todos --" itemValue="-1" />
+                                <f:selectItems value="#{funcionarioController.itemFuncionarios}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-2">
+                            <h:outputLabel value="*TIPO PERMISO:"/>
+                            <h:selectOneMenu id="somPermiso" value="#{funcionarioController.objPermiso.idMotiperm}" style="width:100%" styleClass="form-control">
+                                <f:selectItem itemLabel="-- Todos --" itemValue="-1" />
+                                <f:selectItems value="#{funcionarioController.itemPermisos}" />
+                            </h:selectOneMenu>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-2">
+                            <h:outputLabel value="*FECHA INICIO:"/>
+                            <h:inputText id="fecDesde" autocomplete="off" value="#{funcionarioController.strFecDesde}" styleClass="form-control datepicker"/>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <h:outputLabel value="*FECHA FIN:"/>
+                            <h:inputText id="fecHasta" autocomplete="off" value="#{funcionarioController.strFecHasta}" styleClass="form-control datepicker"/>
+                        </div>
+
+                    </div>
+                
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <h:outputLabel value="*DESCRIPCION:"/>
+                            <h:inputTextarea id="idDescripcion"
+                                                     rows="4"
+                                                     cols="50"
+                                                     value="#{funcionarioController.objPermiso.desPerm}" />
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        
+                        <div class="form-group col-md-2">
+                            <label>&nbsp;&nbsp;</label>
+                            <div>
+                                <h:commandButton styleClass="btn btn-primary" value="Grabar" actionListener="#{funcionarioController.grabarPermisoFunc()}">
+                                </h:commandButton>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            
+        </ui:define>
+    </ui:composition>
+</html>

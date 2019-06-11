@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/documento/RelacionarDocumentoMC" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns="http://mincetur.gob.pe/SIC/documento/RelacionarDocumentoMC">
+  <xsd:import schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo" namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo"/>
+  <xsd:element name="RELACIONARDOCUMENTOMC" type="RELACIONARDOCUMENTOMCTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RELACIONARDOCUMENTOMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="EVENTO">
+        <xsd:complexType>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="ID_TRELAEVEN" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DOCUMENTO" type="doc:DOCUMENTOTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

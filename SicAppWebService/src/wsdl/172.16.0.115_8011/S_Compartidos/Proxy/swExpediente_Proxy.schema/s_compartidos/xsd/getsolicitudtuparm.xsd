@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/solicitudRM" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/solicitudRM" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns:pla="http://mincetur.gob.pe/SIC/documento/PlantillaTipo" xmlns:exp="http://mincetur.gob.pe/SIC/expediente/urlExternaTipo">
+    <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+    <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo"/>
+    <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/PlantillaTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FPlantillaTipo"/>
+    <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/urlExternaTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FurlExternaTipo"/>
+    <xsd:element name="getSolicitudTupaRM">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="solicitudes">
+                    <xsd:annotation>
+                        <xsd:documentation>A sample element</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="solicitud" maxOccurs="unbounded" minOccurs="1">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="procedimiento" type="xsd:string"/>
+                                        <xsd:element name="notasGenerales" type="xsd:string"/>
+                                        <xsd:element name="administrado">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="nombre" type="xsd:string"/>
+                                                    <xsd:element name="documentosIdentificacion">
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element name="documentoIdentificacion" maxOccurs="unbounded" minOccurs="1">
+                                                                    <xsd:complexType>
+                                                                        <xsd:sequence>
+                                                                            <xsd:element name="numDocumentoIdentificacion" type="xsd:string"/>
+                                                                        </xsd:sequence>
+                                                                        <xsd:attribute name="idTipoDocumentoIdentificacion" type="xsd:integer"/>
+                                                                        <xsd:attribute name="tipoDocumentoIdentificacion" type="xsd:string"/>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                            </xsd:sequence>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="informacionRepresentante">
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element name="telefono">
+                                                                    <xsd:complexType>
+                                                                        <xsd:attribute name="fijo" type="xsd:string"/>
+                                                                        <xsd:attribute name="celular" type="xsd:string"/>
+                                                                        <xsd:attribute name="fax" type="xsd:string"/>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                                <xsd:element name="virtual">
+                                                                    <xsd:complexType>
+                                                                        <xsd:attribute name="email" type="xsd:string"/>
+                                                                    </xsd:complexType>
+                                                                </xsd:element>
+                                                            </xsd:sequence>
+                                                            <xsd:attribute name="nombreRepresentante" type="xsd:string"/>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="domicilioProcesal">
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element name="direccion" type="xsd:string"/>
+                                                            </xsd:sequence>
+                                                            <xsd:attribute name="idLugar" type="xsd:integer"/>
+                                                            <xsd:attribute name="codigoPostal" type="xsd:string"/>
+                                                            <xsd:attribute name="ubigeo" type="xsd:string"/>
+                                                            <xsd:attribute name="urlVerDetalle" type="xsd:anyURI"/>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                                <xsd:attribute name="idPersona" type="xsd:integer"/>
+                                                <xsd:attribute name="idTipoPersona" type="xsd:integer"/>
+                                                <xsd:attribute name="tipoPersona" type="xsd:string"/>
+                                                <xsd:attribute name="urlVerDetalle" type="xsd:anyURI"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="DOCUMENTOS" type="ARCHIVOSADJUNTOS"/>
+                                        <xsd:element name="REQUERIMIENTOS_LEGAL" type="REQUERIMIENTOSSOLICITUD"/>
+                                        <xsd:element name="REQUERIMIENTOS_TECNICO" type="REQUERIMIENTOSSOLICITUD"/>
+                                        <xsd:element name="REQUERIMIENTOS_FINANCIERO" type="REQUERIMIENTOSSOLICITUD"/>
+                                        <xsd:element name="DOCUMENTO_ADJUNTO" type="doc:DOCUMENTOTIPO"/>
+                                    </xsd:sequence>
+                                    <xsd:attribute name="idEvento" type="xsd:integer"/>
+                                    <xsd:attribute name="urlVerDetalle" type="xsd:anyURI"/>
+                                    <xsd:attribute name="idProcedimiento" type="xsd:integer"/>
+                                    <xsd:attribute name="fechaCreacion" type="xsd:string"/>
+                                    <xsd:attribute name="fueEnviado" type="xsd:boolean"/>
+                                    <xsd:attribute name="correlation" type="xsd:string"/>
+                                    <xsd:attribute name="fechaDesde" type="xsd:string"/>
+                                    <xsd:attribute name="fechaHasta" type="xsd:string"/>
+                                    <xsd:attribute name="plazo" type="xsd:integer"/>
+                                    <xsd:attribute name="DES_EXPEDIENTE" type="xsd:string"/>
+                                    <xsd:attribute name="DES_EVALS" type="xsd:string"/>
+                                    <xsd:attribute name="FLG_SILEADMI" type="xsd:integer"/>
+                                    <xsd:attribute name="DES_ESTAINST" type="xsd:string"/>
+                                    <xsd:attribute name="DES_EXPEINST" type="xsd:string"/>
+                                    <xsd:attribute name="DES_PERSFUNCRESP" type="xsd:string"/>
+                                    <xsd:attribute name="FLG_RESOOFIC" type="xsd:integer"/>
+                                    <xsd:attribute name="COD_PROCEDIMIENTO" type="xsd:string"/>
+                                    <xsd:attribute name="COD_SGRUPSCLASEEVEN" type="xsd:string"/>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="PLANTILLAS">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="PLANTILLA" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:complexContent>
+                                                    <xsd:extension base="pla:PLANTILLATIPO"/>
+                                                </xsd:complexContent>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="URLEXTERNAS">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="URLEXTERNA" type="exp:URLEXTERNATIPO" maxOccurs="unbounded" minOccurs="1"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="ERROR" type="err:SICERROR"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+        <xsd:complexType name="ARCHIVOSADJUNTOS">
+            <xsd:sequence>
+                <xsd:element name="ARCHIVO" type="ARCHIVODOCUMENTO" maxOccurs="unbounded" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    
+    <xsd:complexType name="ARCHIVODOCUMENTO">
+        <xsd:attribute name="ID_DOCUMENTO" type="xsd:integer"/>
+        <xsd:attribute name="DES_CONTENT" type="xsd:string"/>
+        <xsd:attribute name="DES_NOMBREARCHIVO" type="xsd:string"/>
+        <xsd:attribute name="DES_EXTENSION" type="xsd:string"/>
+        <xsd:attribute name="DES_TITULO" type="xsd:string"/>
+        <xsd:attribute name="DES_DOCUMENTO" type="xsd:string"/>
+        <xsd:attribute name="DES_FECHACREACION" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:complexType name="REQUERIMIENTOSSOLICITUD">
+        <xsd:sequence>
+            <xsd:element name="REQUERIMIENTO" type="REQUERIMIENTOSOLICITUD" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="REQUERIMIENTOSOLICITUD">
+        <xsd:sequence>
+            <xsd:element name="METADATOS">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="METADATA" maxOccurs="unbounded" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:attribute name="DES_ATRIBUTO" type="xsd:string"/>
+                                <xsd:attribute name="DES_VALOR" type="xsd:string"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="NUM_IDDOCUMENTO" type="xsd:integer"/>
+        <xsd:attribute name="NUM_IDTIPOREQUISITO" type="xsd:integer"/>
+        <xsd:attribute name="DES_TIPOREQUISITO" type="xsd:string"/>
+        <xsd:attribute name="DES_URLVERDETALLE" type="xsd:string"/>
+        <xsd:attribute name="DES_OBSERVACION" type="xsd:string"/>
+        <xsd:attribute name="DES_COMENTARIO" type="xsd:string"/>
+        <xsd:attribute name="NUM_SOLICITARDOCUMENTO" type="xsd:integer"/>
+        <xsd:attribute name="NUM_INCLUIRENOFICIO" type="xsd:integer"/>
+        <xsd:attribute name="DES_ESTADO" type="xsd:string"/>
+        <xsd:attribute name="NUM_CANTDOCUBINA" type="xsd:integer"/>
+        <xsd:attribute name="COD_ESTADO" type="xsd:string"/>
+        <xsd:attribute name="COD_GRUPO" type="xsd:string"/>
+        <xsd:attribute name="COD_SCLASEEVENASOC" type="xsd:string"/>
+        <xsd:attribute name="FLG_DOCUBINA" type="xsd:integer"/>
+    </xsd:complexType>
+</xsd:schema>

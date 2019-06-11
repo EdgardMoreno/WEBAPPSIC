@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR" xmlns:or1="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" xmlns:or2="http://mincetur.gob.pe/SIC/persona/obtenerRepresentantes" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns:per="http://mincetur.gob.pe/SIC/persona/personaTipo">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/persona/personaTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FpersonaTipo"/>
+              
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRequisitos"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/persona/obtenerRepresentantes" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRepresentantes"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+  <xsd:element name="OBTENERSOLICITUDMC" type="OBTENERSOLICITUDMCTIPO"/>
+  <xsd:complexType name="OBTENERSOLICITUDMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="SOLICITUDACCESO">
+        <xsd:complexType>
+          <xsd:attribute name="ID_PERS" type="xsd:integer"/>
+          <xsd:attribute name="COD_SCLASEEVEN" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OBTENERSOLICITUDMR" type="OBTENERSOLICITUDMRTIPO"/>
+  <xsd:complexType name="OBTENERSOLICITUDMRTIPO">
+          <xsd:sequence>
+      <xsd:element name="SOLICITUD">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="REPRESENTANTES" type="or2:REPRESENANTECOLECCIONTIPO"/>
+            <xsd:element name="REQUISITOS" type="or1:REQUISITOCOLECCIONTIPO"/>
+            <xsd:element name="DOCUMENTO" type="doc:DOCUMENTOTIPO"/>
+            <xsd:element name="ADMINISTRADO" type="per:PERSONATIPO"/>
+          </xsd:sequence>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="DES_EVEN" type="xsd:string"/>
+          <xsd:attribute name="COD_EXPE" type="xsd:string"/>
+          <xsd:attribute name="FEC_CREACION" type="xsd:string"/>
+          <xsd:attribute name="ID_PERS" type="xsd:integer"/>
+          <xsd:attribute name="ID_STIPOEVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_STIPOEVEN" type="xsd:string"/>
+          <xsd:attribute name="DES_STIPOEVEN" type="xsd:string"/>
+          <xsd:attribute name="ID_TIPOEVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_TIPOEVEN" type="xsd:string"/>
+          <xsd:attribute name="ID_SCLASEEVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_SCLASEEVEN" type="xsd:string"/>
+          <xsd:attribute name="DES_SCLASEEVEN" type="xsd:string"/>
+          <xsd:attribute name="ID_CLASEEVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_CLASEEVEN" type="xsd:string"/>
+          <xsd:attribute name="FEC_DESDE" type="xsd:string"/>
+          <xsd:attribute name="FEC_HASTA" type="xsd:string"/>
+          <xsd:attribute name="DES_NOTAS" type="xsd:string"/>
+          <xsd:attribute name="COD_TIPOSREQUISITO" type="xsd:string"/>
+          <xsd:attribute name="FLG_SILEADMI" type="xsd:integer"/>
+          <xsd:attribute name="NUM_DIAPLAZO" type="xsd:integer"/>
+          <xsd:attribute name="COD_TIPOSOLI" type="xsd:integer"/>
+          <xsd:attribute name="COD_SGRUSCLASEEVEN" type="xsd:string"/>
+          <xsd:attribute name="COD_NUMTUPA" type="xsd:string"/>
+          <xsd:attribute name="ID_TUPA_CONCEPTO" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>  
+</xsd:schema>

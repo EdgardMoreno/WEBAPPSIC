@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+  <xsd:element name="GUARDARREQUISITOMC" type="GUARDARREQUISITOMCTIPO"/>
+  <xsd:complexType name="GUARDARREQUISITOMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITO">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="METADATOS">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="METADATO" maxOccurs="unbounded">
+                    <xsd:complexType>
+                      <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+                      <xsd:attribute name="ID_TATRI" type="xsd:integer"/>
+                      <xsd:attribute name="COD_VALORATRIB" type="xsd:string"/>
+                      <xsd:attribute name="COD_VALORATRIBEXT" type="xsd:string"/>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DOCUMENTO" type="doc:DOCUMENTOTIPO" minOccurs="0"/>
+          </xsd:sequence>
+          <xsd:attribute name="ID_TIPOIDEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_IDEN" type="xsd:string"/>
+          <xsd:attribute name="ID_STIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="DES_TITULO" type="xsd:string"/>
+          <xsd:attribute name="DES_DOCU" type="xsd:string"/>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GUARDARREQUISITOMR" type="GUARDARREQUISITOMRTIPO"/>
+  <xsd:complexType name="GUARDARREQUISITOMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="GUARDARREQUISITODR">
+        <xsd:complexType>
+          <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

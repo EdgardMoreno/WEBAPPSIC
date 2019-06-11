@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/persona/obtenerRepresentantes" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/persona/obtenerRepresentantes">
+<xsd:complexType name="OBTENERREPRESENTANTESMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="REPRESENTANTES" type="REPRESENANTECOLECCIONTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OBTENERREPRESENTANTESMR" type="OBTENERREPRESENTANTESMRTIPO"/>
+  <xsd:complexType name="OBTENERREPRESENTANTESMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="OBTENERREPRESENTANTESDC">
+        <xsd:complexType>
+          <xsd:attribute name="ID_PERS" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OBTENERREPRESENTANTESMC" type="OBTENERREPRESENTANTESMCTIPO"/>
+  <xsd:complexType name="REPRESENANTECOLECCIONTIPO">
+    <xsd:sequence>
+      <xsd:element name="REPRESENTANTE" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:attribute name="ID_ADMIN" type="xsd:integer"/>
+          <xsd:attribute name="DES_ADMIN" type="xsd:string"/>
+          <xsd:attribute name="ID_REPRE" type="xsd:integer"/>
+          <xsd:attribute name="DES_REPRE" type="xsd:string"/>
+          <xsd:attribute name="ID_TRELAPERS" type="xsd:integer"/>
+          <xsd:attribute name="DES_TRELAPERS" type="xsd:string"/>
+          <xsd:attribute name="COD_TRELAPERS" type="xsd:string"/>
+          <xsd:attribute name="MAIL" type="xsd:string"/>
+          <xsd:attribute name="TELEFAX" type="xsd:string"/>
+          <xsd:attribute name="TELECELULAR" type="xsd:string"/>
+          <xsd:attribute name="TELEFIJO" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

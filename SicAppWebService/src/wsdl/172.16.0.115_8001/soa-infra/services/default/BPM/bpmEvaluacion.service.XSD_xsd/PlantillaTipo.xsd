@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/documento/PlantillaTipo"
+     targetNamespace="http://mincetur.gob.pe/SIC/documento/PlantillaTipo" elementFormDefault="qualified">
+    <xsd:element name="PLANTILLA">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="PLANTILLATIPO"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="PLANTILLATIPO">
+        <xsd:sequence>
+            <xsd:element name="PARAMETROS">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="PARAMETRO" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:attribute name="DES_NOMBREPARAMETRO" type="xsd:string"/>
+                                <xsd:attribute name="DES_VALORPARAMETRO" type="xsd:string"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="COD_STIPODOCU" type="xsd:string"/>
+        <xsd:attribute name="DES_RUTAPLANTILLA" type="xsd:string"/>
+        <xsd:attribute name="NUM_TIPOENVIO" type="xsd:integer"/>
+        <xsd:attribute name="DES_FORMATO" type="xsd:string"/>
+        <xsd:attribute name="DES_LOCAL" type="xsd:string"/>
+        <xsd:attribute name="DES_PLANTILLA" type="xsd:string"/>
+    </xsd:complexType>
+</xsd:schema>

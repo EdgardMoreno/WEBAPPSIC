@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/urlExternaTipo" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/urlExternaTipo">
+  <xsd:complexType name="URLEXTERNATIPO">
+    <xsd:attribute name="DES_VERSUDM" type="xsd:string"/>
+    <xsd:attribute name="COD_VERSUDM" type="xsd:string"/>
+    <xsd:attribute name="DES_VALOR" type="xsd:string"/>
+  </xsd:complexType>
+</xsd:schema>

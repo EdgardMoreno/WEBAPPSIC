@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" xmlns:sol="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerSolicitud"/>
+  <xsd:element name="ABRIREXPEDIENTEMC" type="ABRIREXPEDIENTEMCTIPO"/>
+  <xsd:complexType name="ABRIREXPEDIENTEMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="ABRIREXPEDIENTEDC">
+        <xsd:complexType>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="FLG_ORDEN" type="xsd:integer" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="ID_TAREAOBSREQ" type="xsd:integer" minOccurs="0" maxOccurs="1"/>            
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="ABRIREXPEDIENTEMR" type="ABRIREXPEDIENTEMRTIPO"/>
+  <xsd:complexType name="ABRIREXPEDIENTEMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="EXPEDIENTE" type="sol:OBTENERSOLICITUDMRTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

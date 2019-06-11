@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" xmlns:sol="http://mincetur.gob.pe/SIC/expediente/solicitudRM">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/solicitudRM" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FgetSolicitudTupaRM"/>
+  <xsd:element name="OBTENERREQUERIMIENTOSSOLICITUDMC" type="OBTENERREQUERIMIENTOSSOLICITUDMCTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="OBTENERREQUERIMIENTOSSOLICITUDMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="OBTENERREQUERIMIENTOSDC">
+        <xsd:complexType>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_TRELACLASEEVEN" type="xsd:string"/>
+          <xsd:attribute name="COD_SCLASEEVEN" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="OBTENERREQUERIMIENTOSSOLICITUDMR" type="OBTENERREQUERIMIENTOSSOLICITUDMRTIPO"/>
+  <xsd:complexType name="OBTENERREQUERIMIENTOSSOLICITUDMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUERIMIENTOS" type="sol:REQUERIMIENTOSSOLICITUD"/>
+    </xsd:sequence>
+  </xsd:complexType>  
+</xsd:schema>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/crearInspeccion" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/crearInspeccion">
+    <xsd:complexType name="INSPECCIONTIPO">
+      <xsd:sequence>
+        <xsd:element name="INFRACCCIONES">
+          <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+              <xsd:element name="INFRACCION">
+                <xsd:complexType>
+                <xsd:sequence minOccurs="0">
+                  <xsd:element name="BIENES">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+                        <xsd:element name="BIEN">
+                          <xsd:complexType>
+                            <xsd:attribute name="COD_CODIAUTO" type="xsd:string"/>
+                            <xsd:attribute name="DES_COMENTARIO" type="xsd:string"/>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+                <xsd:attribute name="ID_INFRACCION" type="xsd:integer"/>
+                  <xsd:attribute name="FLG_SELE" type="xsd:integer"/>
+                  <xsd:attribute name="DES_COMENTARIO" type="xsd:string"/>
+                  <xsd:attribute name="NUM_INCIDENCIAS" type="xsd:integer"/>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="ID_ADMINISTRADO" type="xsd:integer"/>
+      <xsd:attribute name="ID_SALA" type="xsd:integer"/>
+      <xsd:attribute name="ID_MOTIVO" type="xsd:integer"/>
+      <xsd:attribute name="FEC_INIINSPECCION" type="xsd:string"/>
+      <xsd:attribute name="FEC_FININSPECCION" type="xsd:string"/>
+      <xsd:attribute name="DES_SUMILLA" type="xsd:string"/>
+      <xsd:attribute name="ID_EVENTO" type="xsd:integer"/>
+      <xsd:attribute name="COD_EXPEDIENTE" type="xsd:string"/>
+    </xsd:complexType>
+  <xsd:element name="INSPECCION" type="INSPECCIONTIPO"/>
+</xsd:schema>

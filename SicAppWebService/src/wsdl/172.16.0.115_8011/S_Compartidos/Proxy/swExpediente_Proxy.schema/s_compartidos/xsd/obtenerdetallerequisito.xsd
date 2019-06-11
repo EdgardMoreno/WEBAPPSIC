@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" xmlns:doc="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR">
+  <xsd:import schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR" namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/DocumentoTipo" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FDocumentoTipo"/>
+  <xsd:element name="OBTENERDETALLEREQUISITOMC" type="OBTENERDETALLEREQUISITOMCTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="OBTENERDETALLEREQUISITOMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="CONDICIONEVENTO">
+        <xsd:complexType>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="ID_STIPODOCU" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>  
+  <xsd:element name="OBTENERDETALLEREQUISITOMR" type="OBTENERDETALLEREQUISITOMRTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="OBTENERDETALLEREQUISITOMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITOSEVENTO">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="REQUISITOS" type="REQUISITOSTIPO"/>
+            <xsd:element name="DOCUMENTO" type="doc:DOCUMENTOTIPO"/>
+          </xsd:sequence>
+          <xsd:attribute name="ID_EVEN" type="xsd:integer"/>
+          <xsd:attribute name="ID_STIPODOCU" type="xsd:integer"/>
+          <xsd:attribute name="DES_DOCU" type="xsd:string"/>
+          <xsd:attribute name="DES_TITULO" type="xsd:string"/>
+          <xsd:attribute name="COD_IDEN" type="xsd:string"/>
+          <xsd:attribute name="ID_TIPOIDEN" type="xsd:integer"/>
+          <xsd:attribute name="ID_TIPOSALA" type="xsd:integer"/>
+          <xsd:attribute name="FLG_REQ_OBS" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="REQUISITOSTIPO">
+    <xsd:sequence>
+      <xsd:element name="REQUISITO" type="REQUISITOTIPO" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="REQUISITOCOLECCION" type="REQUISITOSTIPO"/>
+  <xsd:complexType name="REQUISITOTIPO">
+      <xsd:attribute name="ID_TATRI" type="xsd:integer"/>
+      <xsd:attribute name="DES_TATRI" type="xsd:string"/>
+      <xsd:attribute name="DES_ETIQUETA" type="xsd:string"/>
+      <xsd:attribute name="VAL_TATRI" type="xsd:string"/>
+      <xsd:attribute name="COD_TIPODATO" type="xsd:string"/>
+      <xsd:attribute name="COD_SELECTOR" type="xsd:string"/>
+      <xsd:attribute name="COD_NOMBTABLA" type="xsd:string"/>
+      <xsd:attribute name="COD_TATRI" type="xsd:string"/>
+      <xsd:attribute name="FLG_ESTADO" type="xsd:string"/>
+    <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+    <xsd:attribute name="ID_TIPOIDENDOCU" type="xsd:integer"/>
+    <xsd:attribute name="COD_IDENDOCU" type="xsd:string"/>
+    <xsd:attribute name="FLG_OBLIG" type="xsd:integer"/>
+    <xsd:attribute name="NUM_ORDEN" type="xsd:integer"/>
+    <xsd:attribute name="NUM_TAMAMAXI" type="xsd:integer"/>
+    <xsd:attribute name="FLG_ENVIMANU" type="xsd:integer"/>
+    <xsd:attribute name="COD_PARA" type="xsd:string"/>
+    <xsd:attribute name="NUM_PIXE" type="xsd:integer"/>
+    <xsd:attribute name="DES_NOTAS" type="xsd:string"/>
+    <xsd:attribute name="DES_URLAYUD" type="xsd:string"/>
+  </xsd:complexType>
+</xsd:schema>

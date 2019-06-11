@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"  >    
+    
+    
+    <ui:composition template="./templates/templatePrincipal.xhtml">
+        
+        <ui:define name="header">            
+            <script>
+
+            </script>       
+
+        </ui:define>
+        
+        <ui:define name="content">
+                
+                <div class="container">
+                                        
+                    <div class="page-header" >
+                        <h3>${eventoController.desTitulopagina}</h3>
+                    </div>
+                    
+                    <p:growl id="message" showDetail="true" />
+                    
+                    <h:panelGroup rendered="#{eventoController.flgActivarFiltro}">
+                    
+                        <div class="row">
+                            
+                            <div class="form-group col-md-2">
+                                <h:outputLabel value="TIPO PROCEDIMIENTO:"/>
+                                <p:selectCheckboxMenu id="tipoProcedimiento" value="#{eventoController.selectedSubClaseEvento}" label="item" multiple="true"
+                                                      filter="true" style="width: 170px" filterMatchMode="contains" panelStyle="width:450px">
+                                    <f:selectItems value="#{eventoController.lstSubClaseEvento}" />
+                                </p:selectCheckboxMenu>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <h:outputLabel value="ADMINISTRADO:"/>
+                                <h:inputText id="desPersAdmi" styleClass="form-control" value="#{eventoController.desPersAdmi}" />
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <h:outputLabel value="NRO. EXPEDIENTE:"/>
+                                <h:inputText id="nroExpediente" styleClass="form-control" value="#{eventoController.codExpe}"/>
+                            </div>
+
+                             <div class="form-group col-md-2">
+                                <h:outputLabel value="RESPONSABLE:"/>
+                                <p:selectCheckboxMenu id="idResponsables" value="#{eventoController.selectedFuncResp}" label="item" multiple="true"
+                                                      filter="true" style="width: 170px" filterMatchMode="startsWith" panelStyle="width:450px">
+                                    <f:selectItems value="#{eventoController.lstItemsFuncResp}" />
+                                </p:selectCheckboxMenu>
+                            </div>
+                           
+                        </div>
+                        
+                        <div class="row">
+
+                            <div class="form-group col-md-2">
+                                <h:outputLabel value="FECHA DESDE:"/>
+                                <h:inputText id="fecDesde" autocomplete="off" value="#{eventoController.strFecDesde}" styleClass="form-control datepicker"/>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <h:outputLabel value="FECHA HASTA:"/>
+                                <h:inputText id="fecHasta" autocomplete="off" value="#{eventoController.strFecHasta}" styleClass="form-control datepicker"/>
+                            </div>
+                            
+                            <div class="form-group col-md-2">
+                                <h:outputLabel value="ESTADO EXPEDIENTE:"/>
+                                <h:selectOneMenu id="idEstaEven" value="#{eventoController.idEstaEven}" style="width:100%" styleClass="form-control">
+                                    <f:selectItem itemLabel="-- TODOS --" itemValue="-1" />
+                                    <f:selectItem itemLabel="EN TRAMITE" itemValue="243" />
+                                    <f:selectItem itemLabel="RESUELTO" itemValue="23" />
+                                </h:selectOneMenu>                        
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>&nbsp;&nbsp;</label>
+                                <div>
+                                    <h:commandButton styleClass="btn btn-primary" value="Buscar" actionListener="#{eventoController.buscarExpediente()}"/>                                                                            
+                                    <label>&nbsp;&nbsp;</label>
+                                    <h:commandButton styleClass="btn btn-primary" value="Limpiar" actionListener="#{eventoController.limpiar()}"/>                                                                       
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </h:panelGroup>
+                    
+                    <div class="row">
+
+                        <!-- ********************************** -->
+                        <!-- LISTA DE PERSONAS --> 
+                        <!-- *********************************** -->                        
+                            
+                        <p:dataTable  
+                                    id="dtExpedientes" var="item" 
+                                    value="#{eventoController.lstEventos}" rows="50" style="margin-bottom:20px"
+                                    paginator="true"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                    rowsPerPageTemplate="50,80">
+                            
+                                    <f:facet name="{Exporters}">
+                                        <h:commandLink>
+                                            <p:graphicImage name="/img/excel.png" width="24"/>
+                                            <p:dataExporter type="xls" target="dtExpedientes" fileName="RptExpediente" />
+                                        </h:commandLink>
+
+                                        <h:commandLink>
+                                            <p:graphicImage name="/img/pdf.png" width="24"/>
+                                            <p:dataExporter type="pdf" target="dtExpedientes" fileName="RptExpediente"/>
+                                        </h:commandLink>
+                                        
+                                    </f:facet>
+
+                                    <p:column headerText="No." width="10">
+                                        <h:outputText value="#{eventoController.lstEventos.indexOf(item) + 1}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="EXPEDIENTE" width="85">
+                                        <h:outputText value="#{item.codExpe}" />                                        
+                                    </p:column>
+                            
+                                    <p:column headerText="MIGRADO" width="70">
+                                        <h:outputText value="#{item.flgMigrado==1?'SI':'NO'}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="PROCEDIMIENTO" width="210">
+                                        <h:outputText value="#{item.idSclaseeven.desSclaseeven}" />
+                                    </p:column>
+
+                                    <p:column headerText="FECHA ENVIO" width="90">
+                                        <h:outputText value="#{item.fecDesde}" />
+                                    </p:column>
+
+                                    <p:column headerText="ADMINISTRADO" >
+                                        <h:outputText value="#{item.sic1ideneven.sic1pers.desPers}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="RESPONSABLE" width="180">
+                                        <h:outputText value="#{item.sic1persfuncresp.desPers}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="ESTADO" width="90">
+                                        <h:outputText value="#{item.desEstaeven}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="RESOLUCION" width="100">
+                                        <h:commandLink value="#{item.sic1docu.sic1docubina.numDocubina}">
+                                            <f:ajax execute="@this"/>
+                                        </h:commandLink>
+                                        &nbsp;
+                                        <h:commandLink rendered="#{not empty item.sic1docu.idDocu}">
+                                            <p:fileDownload value="#{utilController.descargarDocumento(item.sic1docu.idDocu)}" />
+                                            <span class="glyphicon glyphicon-download-alt"></span>
+                                        </h:commandLink>                                
+                                    </p:column>
+                            
+                                    <p:column headerText="FECHA NOTIFICACION" width="100">
+                                        <h:outputText rendered="#{item.sic1docu.sic3docuesta.desEstadocu=='NOTIFICADO'?true:false}" value="#{item.sic1docu.fecDesde}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="" width="90">
+                                        <h:commandButton value="Ver Detalle" action="#{eventoController.obtenerDetalleExpediente(item.idEven)}">
+                                        </h:commandButton>
+                                    </p:column>
+
+                                    <f:facet name="paginatorTopLeft">
+                                        <p:commandButton type="button" icon="fa fa-sync" />
+                                    </f:facet>
+
+                                    <f:facet name="paginatorBottomRight">
+                                        <p:commandButton type="button" icon="fa fa-cloud-upload" />
+                                    </f:facet>
+                               </p:dataTable>
+
+                       </div>
+                    
+                    
+                </div>
+            
+        </ui:define>
+    </ui:composition>
+</html>

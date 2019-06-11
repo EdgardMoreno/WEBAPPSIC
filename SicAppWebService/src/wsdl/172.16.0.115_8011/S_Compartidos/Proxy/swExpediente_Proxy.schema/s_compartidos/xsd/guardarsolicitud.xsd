@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/guardarSolicitud" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/guardarSolicitud" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR" xmlns:reldocu="http://mincetur.gob.pe/SIC/documento/RelacionarDocumentoMC" xmlns:repre="http://mincetur.gob.pe/SIC/persona/crearRepresentanteMC">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/documento/RelacionarDocumentoMC" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FRelacionarDocumentoMC"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/persona/crearRepresentanteMC" schemaLocation="http://172.16.0.115:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FcrearRepresentanteMC"/>
+  <xsd:element name="GUARDARSOLICITUDMC" type="GUARDARSOLICITUDMCTIPO"/>
+  <xsd:complexType name="GUARDARSOLICITUDMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="REPRESENTANTE" type="repre:CREARREPRESENTANTEMCTIPO"/>
+      <xsd:element name="DOCUMENTO" type="reldocu:RELACIONARDOCUMENTOMCTIPO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GUARDARSOLICITUDMR" type="GUARDARSOLICITUDMRTIPO"/>
+  <xsd:complexType name="GUARDARSOLICITUDMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

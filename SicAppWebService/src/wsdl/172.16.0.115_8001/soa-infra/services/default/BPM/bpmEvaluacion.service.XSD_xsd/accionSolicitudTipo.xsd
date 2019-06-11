@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo"
+     targetNamespace="http://mincetur.gob.pe/SIC/accion/accionSolicitudTipo" elementFormDefault="qualified">
+    <xsd:element name="ACCIONSOLICITUD" type="ACCIONSOLICITUDTIPO">
+        <xsd:annotation>
+            <xsd:documentation>A sample element</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="ACCIONSOLICITUDTIPO">
+        <xsd:sequence>
+            <xsd:element name="DOCUMENTOS">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="DOCUMENTO" minOccurs="0" maxOccurs="unbounded" type="DOCUMENTOACCIONTIPO"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="COD_TIPOACCION" type="xsd:string"/>
+        <xsd:attribute name="DES_MOTIVO" type="xsd:string"/>
+        <xsd:attribute name="NUM_DIASSOLI" type="xsd:integer"/>
+        <xsd:attribute name="NUM_DIASOTOR" type="xsd:integer"/>
+        <xsd:attribute name="DES_FECHA" type="xsd:string"/>
+        <xsd:attribute name="DES_CORRELTI" type="xsd:string"/>
+        <xsd:attribute name="ID_TAREADESDE" type="xsd:integer"/>
+    </xsd:complexType>
+    <xsd:complexType name="DOCUMENTOACCIONTIPO">
+        <xsd:attribute name="ID_DOCU" type="xsd:integer"/>
+        <xsd:attribute name="COD_EXTEDOCU" type="xsd:string"/>
+        <xsd:attribute name="DES_FEC_CREACION" type="xsd:string"/>
+        <xsd:attribute name="DES_TITULO" type="xsd:string"/>
+        <xsd:attribute name="DES_NOMBREAL" type="xsd:string"/>
+        <xsd:attribute name="COD_TIPODOCU" type="xsd:string"/>
+        <xsd:attribute name="COD_STIPODOCU" type="xsd:string"/>
+        <xsd:attribute name="COD_ESTA" type="xsd:string"/>
+        <xsd:attribute name="DES_LOCAURI" type="xsd:string"/>
+        <xsd:attribute name="DES_PERSCREADOR" type="xsd:string"/>
+    </xsd:complexType>
+</xsd:schema>

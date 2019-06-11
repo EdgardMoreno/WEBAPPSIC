@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/persona/crearRepresentanteMC" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/persona/crearRepresentanteMC">
+  <xsd:element name="CREARREPRESENTANTEMC" type="CREARREPRESENTANTEMCTIPO">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="CREARREPRESENTANTEMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="REPRESENTANTE">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="TIPO_PERSONA">
+              <xsd:complexType>
+                <xsd:choice>
+                  <xsd:element name="PER_NATURAL">
+                    <xsd:complexType>
+                      <xsd:attribute name="DES_PRIMNOMB" type="xsd:string"/>
+                      <xsd:attribute name="DES_SEGUNOMB" type="xsd:string"/>
+                      <xsd:attribute name="DES_APELPATE" type="xsd:string"/>
+                      <xsd:attribute name="DES_APELMATE" type="xsd:string"/>
+                      <xsd:attribute name="ID_ESTACIVIL" type="xsd:integer"/>
+                      <xsd:attribute name="ID_GENERO" type="xsd:integer"/>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="PER_JURIDICA">
+                    <xsd:complexType>
+                      <xsd:attribute name="DES_NOMBCOME" type="xsd:string"/>
+                      <xsd:attribute name="DES_PERSORGA" type="xsd:string"/>
+                      <xsd:attribute name="DES_GRUPEMPR" type="xsd:string"/>
+                      <xsd:attribute name="ID_TIPOEMPR" type="xsd:integer"/>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:choice>
+                <xsd:attribute name="ID_TIPOPERS" type="xsd:integer"/>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+          <xsd:attribute name="ID_REPRE" type="xsd:integer"/>
+          <xsd:attribute name="ID_TIPOIDEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_IDEN" type="xsd:string"/>
+
+          <xsd:attribute name="DES_TELFFIJO" type="xsd:string"/>
+          <xsd:attribute name="DES_TELFCELULAR" type="xsd:string"/>
+          <xsd:attribute name="DES_TELFFAX" type="xsd:string"/>
+          <xsd:attribute name="DES_CORREO" type="xsd:string"/>
+          <xsd:attribute name="DES_UBIGEO" type="xsd:string"/>
+          <xsd:attribute name="ID_PERSREL" type="xsd:integer"/>
+          <xsd:attribute name="ID_TROLPERSREL" type="xsd:integer"/>
+          
+<!--          
+                                                     DES_TELFFIJO     VARCHAR2,
+                                                     DES_TELFCELULAR  VARCHAR2,
+                                                     DES_TELFFAX      VARCHAR2,
+                                                     DES_CORREO       VARCHAR2,
+                                                     DES_UBIGEO       VARCHAR2,
+                                                     ID_PERSREL       NUMBER,
+                                                     ID_TROLPERSREL   NUMBER          
+        -->  
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

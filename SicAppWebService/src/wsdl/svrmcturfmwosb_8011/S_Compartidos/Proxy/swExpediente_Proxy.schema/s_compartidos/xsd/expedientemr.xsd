@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/expedienteMR" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:solMR="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR" xmlns:envMR="http://mincetur.gob.pe/SIC/expediente/enviarSolicitud" xmlns:obrMR="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" xmlns:obtReqMR="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" xmlns:greMR="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" xmlns:abrEMR="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" xmlns:creSolMR="http://mincetur.gob.pe/SIC/expediente/crearSolicitud" xmlns:obtReqSolMR="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" xmlns="http://mincetur.gob.pe/SIC/expediente/expedienteMR">
+              <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+                <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/abrirExpediente" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FabrirExpediente"/>
+                <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/guardarRequisito" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FguardarRequisito"/>
+                <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerDetalleRequisito" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerDetalleRequisito"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/enviarSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FenviarSolicitud"/>
+                <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/crearSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FcrearSolicitud"/>
+                <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequerimientosSolicitud" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRequerimientosSolicitud"/>
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/expediente/obtenerRequisitos" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FobtenerRequisitos"/>
+  <xsd:element name="OBTENERSOLICITUD_MR" type="solMR:OBTENERSOLICITUDMRTIPO"/>
+  <xsd:element name="GUARDARREQUISITO_MR" type="greMR:GUARDARREQUISITOMRTIPO"/>
+  <xsd:element name="ERROR_MR" type="err:SICERROR"/>
+  <xsd:element name="OBTENERDETALLEREQUISITO_MR" type="obrMR:OBTENERDETALLEREQUISITOMRTIPO"/>
+  <xsd:element name="ABRIREXPEDIENTE_MR" type="abrEMR:ABRIREXPEDIENTEMRTIPO"/>
+  <xsd:element name="ENVIARSOLICITUD_MR" type="envMR:ENVIARSOLICITUDMRTIPO"/>
+  <xsd:element name="CREARSOLICITUD_MR" type="creSolMR:CREARSOLICITUDMRTIPO"/>
+   <xsd:element name="OBTENERREQUERIMIENTOSSOLICITUD_MR" type="obtReqSolMR:OBTENERREQUERIMIENTOSSOLICITUDMRTIPO"/>
+  <xsd:element name="OBTENERREQUISITOS_MR" type="obtReqMR:OBTENERREQUISITOSMRTIPO"/>
+
+</xsd:schema>

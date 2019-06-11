@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://mincetur.gob.pe/SIC/expediente/registrarEstadoEvento" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://mincetur.gob.pe/SIC/expediente/registrarEstadoEvento" xmlns:err="http://mincetur.gob.pe/SIC/utilitarios/errorMR">
+  <xsd:import namespace="http://mincetur.gob.pe/SIC/utilitarios/errorMR" schemaLocation="http://svrmcturfmwosb:8011/S_Compartidos/Proxy/swExpediente_Proxy?SCHEMA%2FS_Compartidos%2FXSD%2FerrorMR"/>
+  <xsd:element name="REGISTRARESTADOEVENTOMC" type="REGISTRARESTADOEVENTOMCTIPO"/>
+  <xsd:complexType name="REGISTRARESTADOEVENTOMCTIPO">
+    <xsd:sequence>
+      <xsd:element name="REGISTRARESTADODC">
+        <xsd:complexType>
+          <xsd:attribute name="ID_EVEN" type="xsd:string"/>
+          <xsd:attribute name="ID_SCLASEEVEN" type="xsd:integer"/>
+          <xsd:attribute name="COD_ESTAEVEN" type="xsd:string"/>          
+          <xsd:attribute name="COD_TIPOINST" type="xsd:string"/>
+          <xsd:attribute name="COD_TDETTAREA" type="xsd:string"/>
+          <xsd:attribute name="DES_TAREA" type="xsd:string"/>
+          <xsd:attribute name="DES_NOTAS" type="xsd:string"/>
+          <xsd:attribute name="ID_TAREADESDE" type="xsd:integer"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="REGISTRARESTADOEVENTOMR" type="REGISTRARESTADOEVENTOMRTIPO"/>
+  <xsd:complexType name="REGISTRARESTADOEVENTOMRTIPO">
+    <xsd:sequence>
+      <xsd:element name="ERROR" type="err:SICERROR"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
