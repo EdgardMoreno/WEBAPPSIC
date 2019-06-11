@@ -211,9 +211,9 @@ public class MaquinaController implements Serializable{
                 objMaq.setSic1codiauto(sic1codiauto);
 
                 MaquinaServiceImpl objService = new MaquinaServiceImpl();
-                lstMaquinas = objService.obtMaquinasAutorizadasYTramite(objMaq);
+                this.lstMaquinas = objService.obtMaquinasAutorizadasYTramite(objMaq);
 
-                if (lstMaquinas.isEmpty())
+                if (this.lstMaquinas.isEmpty())
                     MessageUtil.addErrorMessage("No se obtuvieron resultados");
 
             }else{

@@ -72,7 +72,7 @@ public class Sic3proditempers implements Serializable {
         this.idTrolpers = idTrolpers;
     }
 
-    public Sic3proditempers(BigDecimal idProditem, BigDecimal idPers, Integer idTrelaproditem, Date fecHasta) {
+    public Sic3proditempers(BigDecimal idProditem,  BigDecimal idPers, Integer idTrelaproditem, Date fecHasta) {
         this.sic3proditempersPK = new Sic3proditempersPK(idProditem, idPers, idTrelaproditem, fecHasta);
     }
 

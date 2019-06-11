@@ -48,7 +48,9 @@ public class Sic3evenesta implements Serializable {
     @Column(name = "DES_NOTAS")
     private String desNotas;
     
-    private String CodEstaeven;
+    /*Agregados*/
+    private String desEstaeven;
+    private String codEstaeven;
 
     public Sic3evenesta() {
     }
@@ -85,12 +87,20 @@ public class Sic3evenesta implements Serializable {
         this.desNotas = desNotas;
     }
 
-    public String getCodEstaeven() {
-        return CodEstaeven;
+    public String getDesEstaeven() {
+        return desEstaeven;
     }
 
-    public void setCodEstaeven(String CodEstaeven) {
-        this.CodEstaeven = CodEstaeven;
+    public void setDesEstaeven(String desEstaeven) {
+        this.desEstaeven = desEstaeven;
+    }
+
+    public String getCodEstaeven() {
+        return codEstaeven;
+    }
+
+    public void setCodEstaeven(String codEstaeven) {
+        this.codEstaeven = codEstaeven;
     }
     
     

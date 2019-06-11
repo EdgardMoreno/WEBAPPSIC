@@ -13,6 +13,7 @@ import com.general.entity.Sic1stipodocu;
 import com.general.entity.Sic3docuesta;
 import com.general.entity.Sic3docuestaPK;
 import com.general.entity.Sic3evendocu;
+import com.general.util.ConexionBD;
 import com.general.util.beans.ConstantesSic;
 import com.general.util.beans.UtilClass;
 import com.general.util.dao.DaoFuncionesUtil;
@@ -70,6 +71,8 @@ public class DaoDocumentoImpl implements Serializable{
                             "       ,V2.DES_NOMBREAL    " +
                             "       ,UPPER(V2.DES_EXTEDOCU) AS DES_EXTEDOCU " +
                             "       ,UPPER(V2.COD_EXTEDOCU) AS COD_EXTEDOCU " +
+                            "       ,V1.ID_STIPODOCU " +
+                            "       ,UPPER(V1.COD_STIPODOCU) AS COD_STIPODOCU " +
                             " FROM SICDBA.VI_SICDOCU V1        " +
                             " LEFT JOIN SICDBA.VI_SICDOCUBINA V2 ON V1.ID_DOCU = V2.ID_DOCU " +
                             "                               AND V2.FEC_HASTA = TO_DATE('24001231','YYYYMMDD') " +
@@ -96,6 +99,11 @@ public class DaoDocumentoImpl implements Serializable{
                 objEsta.setFecHasta(rsConsulta.getDate("FEC_HASTAESTA"));
                 objEsta.setSic3docuestaPK(objEstaPK);
                 
+                /*SIC1STIPODOCU*/
+                Sic1stipodocu objStipodocu = new Sic1stipodocu();
+                objStipodocu.setIdStipodocu(rsConsulta.getInt("ID_STIPODOCU"));
+                objStipodocu.setCodStipodocu(rsConsulta.getString("COD_STIPODOCU"));
+                        
                 
                 objDocu = new Sic1docu();
                 
@@ -118,7 +126,8 @@ public class DaoDocumentoImpl implements Serializable{
                 objDocu.setDesTitulo(rsConsulta.getString("DES_TITULO"));
                 objDocu.setFecDesde(rsConsulta.getDate("FEC_DESDE"));
                 objDocu.setSic3docuesta(objEsta);
-                objDocu.setSic1docubina(objDocubina);                
+                objDocu.setSic1docubina(objDocubina);
+                objDocu.setSic1stipodocu(objStipodocu);
                 
             }
         
@@ -344,17 +353,19 @@ public class DaoDocumentoImpl implements Serializable{
      * @param idTipodocu Indica el tipo de documento
      * @return
      */
-    public List<Sic3evendocu> obtDocumentosXEvento(  Connection cnConexion
-                                                    ,Integer idEven
+    public List<Sic3evendocu> obtDocumentosXEvento(  Integer idEven
                                                     ,Integer idTipodocu) throws Exception{
     
-        
-        CallableStatement statement = null;
-        ResultSet rsConsulta = null;
-        List<Sic3evendocu> lstEvenDocu = new ArrayList<>();
+
+        Connection cnConexion           = null;
+        CallableStatement statement     = null;
+        ResultSet rsConsulta            = null;
+        List<Sic3evendocu> lstEvenDocu  = new ArrayList<>();
         
         System.out.println("idEven: " + idEven);
         try {                        
+            
+            cnConexion = ConexionBD.obtConexion();
             
             String sql = "SELECT DISTINCT\n" +
                             "         T2.ID_DOCU\n" +
@@ -464,9 +475,22 @@ public class DaoDocumentoImpl implements Serializable{
             }
         
         } catch (SQLException e){            
-            throw new SQLException("obtDocusXEvento()-ERROR:" + e.getMessage());
+            throw new SQLException("obtDocumentosXEvento()-ERROR:" + e.getMessage());
         } catch (Exception e){            
-            throw new Exception("obtDocusXEvento()-ERROR:" + e.getMessage());
+            throw new Exception("obtDocumentosXEvento()-ERROR:" + e.getMessage());
+        }finally{
+            
+            if(statement != null){
+                statement.close();
+            }
+            
+            if(rsConsulta != null){
+                rsConsulta.close();
+            }
+            
+            if(cnConexion != null){
+                cnConexion.close();
+            }
         }
         
         return lstEvenDocu;

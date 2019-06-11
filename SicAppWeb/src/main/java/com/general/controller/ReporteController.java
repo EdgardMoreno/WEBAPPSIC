@@ -7,7 +7,6 @@ package com.general.controller;
 
 import com.general.service.ReporteServiceImpl;
 import com.general.util.beans.RptPlantilla;
-import com.general.util.beans.UtilClass;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.model.chart.PieChartModel;
@@ -122,14 +120,31 @@ public class ReporteController implements Serializable{
         
         try {
             
-            lstRptPlantilla = new ArrayList<>();
+            this.lstRptPlantilla = new ArrayList<>();
             ReporteServiceImpl objService = new ReporteServiceImpl();
-            lstRptPlantilla = objService.listarExpedientesXResponsable(this.strFecDesde, this.strFecHasta);
+            this.lstRptPlantilla = objService.listarExpedientesXResponsable(this.strFecDesde, this.strFecHasta);
 
         } catch (Exception e){
             throw new Exception("generarRptExpedientesXResponsable()-ERROR:" + e.getMessage());
         }
     }
+    
+    
+    public void  objResumenExpedientesEnEvaluacionXFuncionario() throws Exception{
+        
+        try {
+            
+            this.lstRptPlantilla = new ArrayList<>();
+            ReporteServiceImpl objService = new ReporteServiceImpl();
+            this.lstRptPlantilla = objService.objResumenExpedientesEnEvaluacionXFuncionario(this.strFecDesde, this.strFecHasta);
+
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+    
+    
+    
     
     /**
      * METODO QUE LISTA TODOS LOS EXPEDIENTES

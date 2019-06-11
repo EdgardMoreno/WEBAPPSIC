@@ -79,13 +79,11 @@
                         <div class="form-group col-md-2">
                             <label>&nbsp;&nbsp;</label>
                             <div>
-                                <h:commandButton styleClass="btn btn-primary" value="Buscar" >
-                                    <f:ajax execute="numSerie codCodiauto codExpe codRegimode codIdenmode" render="dtPersonas dtMaquinas message" listener="#{maquinaController.buscarMaquinas()}" />
+                                <h:commandButton styleClass="btn btn-primary" value="Buscar"  actionListener="#{maquinaController.buscarMaquinas()}">
                                 </h:commandButton>
                             </div>
-                        </div>
-                        
-                        
+                        </div>                        
+
                     </div>
                     
                     
@@ -147,7 +145,7 @@
                                      style="display: #{maquinaController.lstMaquinas != null and maquinaController.lstMaquinas.size()>0?'inline-block':'none'}" 
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
-                                     rowsPerPageTemplate="50,100">
+                                     rowsPerPageTemplate="50,70">
                             
                             <f:facet name="{Exporters}">
                                 <h:commandLink>
@@ -162,19 +160,19 @@
 
                             </f:facet>                            
 
-                            <p:column headerText="No." width="18">
+                            <p:column headerText="No." width="20" style="padding: 1px;text-align: center">
                                 <h:outputText value="#{maquinaController.lstMaquinas.indexOf(item) + 1}" />
                             </p:column>
 
-                            <p:column headerText="NUM. SERIE" width="100">
+                            <p:column headerText="NUM. SERIE" width="100" style="text-align: center">
                                 <h:outputText value="#{item.sic1proditem.numSerie}" />
                             </p:column>
 
-                            <p:column headerText="COD. REGISTRO" width="100">
+                            <p:column headerText="COD. REGISTRO" width="100" style="text-align: center">
                                 <h:outputText value="#{item.sic1proditem.codCodiauto}" />
                             </p:column>
 
-                            <p:column headerText="TIPO MAQUINA" width="150">
+                            <p:column headerText="TIPO MAQUINA" width="150" style="text-align: center">
                                 <h:outputText value="#{item.sic1proditem.desTipomaq}" />
                             </p:column>
 
@@ -182,7 +180,7 @@
                                 <h:outputText value="#{item.sic1pers.desPers}" />
                             </p:column>
 
-                            <p:column headerText="COD. IDEN. MODELO" width="100">
+                            <p:column headerText="COD. IDEN. MODELO" width="100" style="text-align: center">
                                 <h:outputText value="#{item.sic1proditem.codIdenmode}" />
                             </p:column>
 
@@ -194,8 +192,8 @@
                                 <h:outputText value="#{item.sic1proditem.desPersfab}" />
                             </p:column>
                             
-                            <p:column headerText="NRO. EXPEDIENTE" width="70">
-                                    <h:commandLink value="#{item.sic1proditem.sic1codiauto.sic1even.codExpe}" action="#{eventoController.obtenerDetalleExpediente(item.sic1proditem.sic1codiauto.sic1even.idEven)}"/>                                
+                            <p:column headerText="NRO. EXPEDIENTE" width="80" style="text-align: center">
+                                    <h:commandLink value="#{item.sic1proditem.sic1codiauto.sic1even.codExpe}" action="#{eventoController.obtenerSubEventos(item.sic1proditem.sic1codiauto.sic1even.idEven)}"/>
                             </p:column>
                             
                             <p:column headerText="NRO. RESOLUCION" width="100" style="text-align: center">

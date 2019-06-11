@@ -45,7 +45,7 @@ public class TestService {
         // TODO code application logic here        
         try{
             
-            if(true){
+            if(false){
                 
                 reemplazarDocumentoFirmado(  "978640"
                                             ,"GCARBAJAL"
@@ -81,27 +81,35 @@ public class TestService {
                 obj.obtSubClaseEventoAgrupado();
             }
             
+            //NUMERAR EL INFORME LEGAL
+            if(false){
+                Integer idEven = 4940;
+                String codIdenAbogado = "gespinoza";
+                EventoServiceImpl objService = new EventoServiceImpl();
+                objService.evaluarExpedienteAbogado(idEven, codIdenAbogado);
+            }
+            
             //SIMULAR LA EVALUCION DEL DIRECTOR GENERAL
             if(false){
-                Integer idEven = 14170;
+                Integer idEven = 4940;
                 EventoServiceImpl objService = new EventoServiceImpl();
                 objService.evaluarExpedienteDirectorGeneral(idEven);
             }
             
             //// NOTIFICAR EXPEDIENTES PERDIDOS CON ESTADO DE RESOLUCION U OFICIO "POR FIRMAR"
-            if(false){
+            if(true){
                 
-                Integer intIdEven = 5849;
-                Integer intIdDocuOriginal = 37266;
-                String strCodExpe = "1099446";
-                String strCodUsuario = "CALMIRON";
+                Integer intIdEven = 4940;
+                Integer intIdDocuOriginal = 25682;
+                String strCodExpe = "1082151";
+                String strCodUsuario = "GESPINOZA";
                 String strEstadoDocu = "VI_SICESTAFIRMA";
 
                 //Subir PDF Firmado
-                //subirDocumentoFirmado(intIdDocuOriginal, strCodExpe, strCodUsuario, strEstadoDocu);
+                subirDocumentoFirmado(intIdDocuOriginal, strCodExpe, strCodUsuario, strEstadoDocu);
 
-                //cambiarEstadoDocumento(/*IdDocu Reso*/ intIdDocuOriginal, "VI_SICESTAPORNOTIM");
-
+                cambiarEstadoDocumento(/*IdDocu Reso*/ intIdDocuOriginal, "VI_SICESTAPORNOTIM");
+//
                 cambiarEstadoEvento(intIdEven);//Evento
             }
         
@@ -147,6 +155,7 @@ public class TestService {
             System.out.println("error:" + ex.getMessage());
         }        
     }
+    
     
     
     public static void subirDocumentoFirmado(Integer intIdDocuOriginal
@@ -195,6 +204,7 @@ public class TestService {
 
             //CONSULTAR EN BD
             Sic1docu objDocu = objDaoDocumentoImpl.obtDocuXidDocu(cnConexion, intIdDocuOriginal);
+            String strCodStipodocu = objDocu.getSic1stipodocu().getCodStipodocu();
             String strTitulo = objDocu.getDesTitulo() +" - Firmado";
             System.out.println("COD_DOCUBINA: " + objDocu.getSic1docubina().getSic1docubinaPK().getCodDocubina());
 
@@ -211,16 +221,25 @@ public class TestService {
 
             //INSERTAR DOCUMENTO BINARIO
             objDocu.setDesTitulo(strTitulo);
-            objDaoDocumentoImpl.insertarDocuBina(cnConexion, objDocubina);
+            objDaoDocumentoImpl.insertarDocuBina(cnConexion, objDocubina);            
             
             //VERSIONAR DE ESTADO
             if(strEstadoDocu != null){
+                
+                String codTrolestadocu = null;
+                
+                if(strCodStipodocu.contains("VI_SICTIPODOCURESO") || strCodStipodocu.contains("VI_SICSTIPODOCUOFICOBSE")) //Resolucion
+                    codTrolestadocu = "VI_SICESTADOCUOFIRES";
+                else if(strCodStipodocu.contains("VI_SICSTIPODOCUINFOLEGA") || strCodStipodocu.contains("VI_SICSTIPODOCUINFOTECN")) //Informe Legal
+                    codTrolestadocu = "VI_SICESTADOCUINF";
+                else                    
+                    throw new Exception("Tipo de documento inválido");
                 
                 Sic3docuestaPK sic3docuestaPK = new Sic3docuestaPK();
                 sic3docuestaPK.setIdDocu(objDocu.getIdDocu());
                         
                 Sic3docuesta sic3docuesta = new Sic3docuesta();
-                sic3docuesta.setCodTrolestadocu("VI_SICESTADOCUOFIRES"); //Estados del documento de Tipo Oficio o Resolucion
+                sic3docuesta.setCodTrolestadocu(codTrolestadocu); //Estados del documento de Tipo Oficio o Resolucion O INFORME
                 sic3docuesta.setCodEstadocu(strEstadoDocu);
                 sic3docuesta.setDesNotas(strDesNotas);
                 sic3docuesta.setSic3docuestaPK(sic3docuestaPK);
@@ -311,7 +330,7 @@ public class TestService {
             cnConexion = ConexionBD.obtConexion();
             
             DaoDocumentoImpl objDaoDocumentoImpl = new DaoDocumentoImpl();
-            List<Sic3evendocu> lstDocus = objDaoDocumentoImpl.obtDocumentosXEvento(cnConexion, idEvento, null);
+            List<Sic3evendocu> lstDocus = objDaoDocumentoImpl.obtDocumentosXEvento(idEvento, null);
             
             for(Sic3evendocu objDocu : lstDocus){
                 if(objDocu.getSic1docu().getSic1stipodocu().getCodStipodocu().contains("VI_SICTIPODOCURESO")){

@@ -28,7 +28,7 @@
 <!--<link rel="stylesheet" href="#{request.contextPath}/faces/resources/css/bootstrap-theme.min.css"/>-->        
 
         <!--JAVASCRIPT-->        
-        <script src="#{request.contextPath}/faces/resources/js/jquery-3.2.1.min.js"></script>
+        <script src="#{request.contextPath}/faces/resources/js/jquery-3.3.1.js"></script>
         <script src="#{request.contextPath}/faces/resources/js/bootstrap.min.js"></script>
         <script src="#{request.contextPath}/faces/resources/js/jquery-ui.js" />
         
@@ -56,7 +56,7 @@
                 font-weight: bolder;
             }
             
-             #nonAjaxLoad {
+            #nonAjaxLoad {
                                           
                 position: fixed;
                 z-index: 999;
@@ -98,7 +98,7 @@
         
     </script>
     
-    <body>
+    <body>        
         
         <div id="nonAjaxLoad">
             <img src="#{request.contextPath}/faces/resources/img/loading_page.gif"/>
@@ -148,6 +148,13 @@
                                         <f:param name="paramNombrePagina" value="faces/rptExpeAtendidos" />
                                     </h:commandLink>
                                 </li>
+                                
+                                <li>
+                                    <h:commandLink value="Reporte Expedientes En Evaluacion" actionListener="#{masterPageController.validarDatos()}" action="#{masterPageController.irPagina()}" >
+                                        <f:param name="paramNombrePagina" value="faces/rptExpeEnEvaluacion" />
+                                    </h:commandLink>
+                                </li>
+                                
                                 <li>
                                     <h:commandLink value="Reporte Salas" actionListener="#{masterPageController.validarDatos()}" action="#{masterPageController.irPagina()}" >
                                         <f:param name="paramNombrePagina" value="faces/listarSalas" />
@@ -180,22 +187,27 @@
             
             <div id="content">
                 <ui:insert name="content"></ui:insert>
+                
+                
             </div>
+            
+            
 
             <div id="footer">
             </div>
+            
+            
 
         </h:form>
         
-        <script>
+         <script>
             $(document).ready(function(){
                 $('#nonAjaxLoad').hide();
-            });           
-            
+            });
+
             $(window).bind('beforeunload', function() {
                 $('#nonAjaxLoad').show(); 
-            });            
-            
+            });
         </script>
         
     </body>

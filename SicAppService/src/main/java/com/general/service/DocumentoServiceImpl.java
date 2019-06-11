@@ -41,6 +41,13 @@ public class DocumentoServiceImpl {
         return archivo;
     }
     
+    /**
+     * METODO PARA OBTENER LOS DATOS DEL DOCUMENTO
+     * @param idDocu
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
     public Sic1docu obtDocuXidDocu(Integer idDocu) throws SQLException, Exception{     
         
         Connection cnConexion = null;
@@ -49,7 +56,7 @@ public class DocumentoServiceImpl {
         try{
             
             cnConexion = ConexionBD.obtConexion();
-            DaoDocumentoImpl objDao = new DaoDocumentoImpl();
+            DaoDocumentoImpl objDao = new DaoDocumentoImpl();            
             objDocu = objDao.obtDocuXidDocu(cnConexion, idDocu);
         
         } catch (Exception e) {
@@ -69,51 +76,39 @@ public class DocumentoServiceImpl {
      * @return
      */
     public List<Sic3evendocu> obtDocumentosXEvento(Integer idEven) throws Exception{
-        
-        Connection cnConexion = null;
+                
         List<Sic3evendocu> lstResu = new ArrayList<>();
         
-        try{
-            
-            cnConexion = ConexionBD.obtConexion();
-            DaoDocumentoImpl objDao = new DaoDocumentoImpl();
-            lstResu = objDao.obtDocumentosXEvento(cnConexion, idEven, null);
+        try{            
+        
+            DaoDocumentoImpl objDao = new DaoDocumentoImpl();            
+            lstResu = objDao.obtDocumentosXEvento(idEven, null);
             
         }catch(Exception e){
             throw new Exception("Error: " + e.getMessage());
-        }finally{
-            
-            if(cnConexion != null){
-                cnConexion.close();
-            }
         }
 
         return lstResu;
-    }
+    }       
+        
     
     /**
      * Metodo para obtener los REQUISITOS RELACIONADOS AL EVENTO.
      * @param idEven Indica el numero de evento
      * @return
      */
-    public List<Sic3evendocu> obtRequisitosXEvento(Integer idEven) throws Exception{
+    public List<Sic3evendocu> obtRequisitosXEvento(Integer idEven) throws Exception{        
         
-        Connection cnConexion = null;
         List<Sic3evendocu> lstResu = new ArrayList<>();
         
-        try{
+        try{            
             
-            cnConexion = ConexionBD.obtConexion();
             DaoDocumentoImpl objDao = new DaoDocumentoImpl();
             Integer idTipodocu = 97;
-            lstResu = objDao.obtDocumentosXEvento(cnConexion, idEven, idTipodocu);
+            lstResu = objDao.obtDocumentosXEvento(idEven, idTipodocu);
             
         }catch(Exception e){
             throw new Exception("Error: " + e.getMessage());
-        }finally{
-            if(cnConexion != null){
-                cnConexion.close();
-            }
         }
 
         return lstResu;
@@ -124,24 +119,40 @@ public class DocumentoServiceImpl {
      * @param idEven Indica el numero de evento
      * @return
      */
-    public List<Sic3evendocu> obtDocuGeneTramiteXEvento(Integer idEven) throws Exception{
-                
-        Connection cnConexion = null;
+    public List<Sic3evendocu> obtDocuGeneTramiteXEvento(Integer idEven) throws Exception{                
+        
         List<Sic3evendocu> lstResu = new ArrayList<>();
         
-        try{
-            
-            cnConexion = ConexionBD.obtConexion();
+        try{            
+         
             DaoDocumentoImpl objDao = new DaoDocumentoImpl();
             Integer idTipodocu = 98;
-            lstResu = objDao.obtDocumentosXEvento(cnConexion, idEven, idTipodocu);
+            lstResu = objDao.obtDocumentosXEvento(idEven, idTipodocu);
             
         }catch(Exception e){
             throw new Exception("Error: " + e.getMessage());
-        }finally{
-            if(cnConexion != null){
-                cnConexion.close();
-            }
+        }
+
+        return lstResu;
+    }
+    
+    /**
+     * Metodo para obtener los DOCUMENTOS SUSTENTO relacionados al EVENTO.
+     * @param idEven Indica el numero de evento
+     * @return
+     */
+    public List<Sic3evendocu> obtDocuSustentoXEvento(Integer idEven) throws Exception{                
+        
+        List<Sic3evendocu> lstResu = new ArrayList<>();
+        
+        try{            
+         
+            DaoDocumentoImpl objDao = new DaoDocumentoImpl();
+            Integer idTipodocu = 100;
+            lstResu = objDao.obtDocumentosXEvento(idEven, idTipodocu);
+            
+        }catch(Exception e){
+            throw new Exception("Error: " + e.getMessage());
         }
 
         return lstResu;
@@ -172,4 +183,5 @@ public class DocumentoServiceImpl {
         
         return stream;
     }    
+    
 }

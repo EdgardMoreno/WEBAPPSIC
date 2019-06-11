@@ -132,9 +132,13 @@ public class Sic1even implements Serializable {
     private Sic1ideneven sic1ideneven;
     private Sic1docu sic1docu;
     private Sic1pers  Sic1persfuncresp;
+    private Sic1pers  Sic1persadmi;
     private String desEstaeven;
     private Integer flgMigrado;
     private Sic3evenesta sic3evenesta;
+    private Sic1general objStipoeven;
+    private Integer flgSubevento;
+    private BigDecimal idEventopadre;
 
     public Sic1even() {
     }
@@ -392,6 +396,14 @@ public class Sic1even implements Serializable {
         this.Sic1persfuncresp = Sic1persfuncresp;
     }
 
+    public Sic1pers getSic1persadmi() {
+        return Sic1persadmi;
+    }
+
+    public void setSic1persadmi(Sic1pers Sic1persadmi) {
+        this.Sic1persadmi = Sic1persadmi;
+    }
+
     public String getDesEstaeven() {
         return desEstaeven;
     }
@@ -416,6 +428,33 @@ public class Sic1even implements Serializable {
         this.sic3evenesta = sic3evenesta;
     }   
 
+    public Sic1general getObjStipoeven() {
+        return objStipoeven;
+    }
+
+    public void setObjStipoeven(Sic1general objStipoeven) {
+        this.objStipoeven = objStipoeven;
+    }
+
+    public Integer getFlgSubevento() {
+        return flgSubevento;
+    }
+
+    public void setFlgSubevento(Integer flgSubevento) {
+        this.flgSubevento = flgSubevento;
+    }
+
+    public BigDecimal getIdEventopadre() {
+        return idEventopadre;
+    }
+
+    public void setIdEventopadre(BigDecimal idEventopadre) {
+        this.idEventopadre = idEventopadre;
+    }
+    
+    
+    
+    
     
     @Override
     public int hashCode() {

@@ -93,12 +93,16 @@
                                     id="dtExpedientes" var="item" 
                                     value="#{eventoController.lstDetEvento}" >
 
-                                    <p:column headerText="Administrado" width="260">
-                                        <h:outputText value="#{item.sic1ideneven.sic1pers.desPers}" />
+                                    <p:column headerText="Administrado" width="230">
+                                        <h:outputText value="#{item.sic1persadmi.desPers}" />
                                     </p:column>
                             
                                     <p:column headerText="Nro. Expediente" width="90">
                                         <h:outputText value="#{item.codExpe}" />
+                                    </p:column>
+                            
+                                    <p:column headerText="Tipo" width="140" style="text-align: center">
+                                        <h:outputText value="#{item.objStipoeven.desGeneral}" />
                                     </p:column>
                             
                                     <p:column headerText="Procedimiento" >
@@ -109,12 +113,12 @@
                                         <h:outputText value="#{item.fecDesde}" />
                                     </p:column>
 
-                                    <p:column headerText="Responsable" width="150">
-                                        <h:outputText value="#{item.sic1persfuncresp.desPers}" />
+                                    <p:column headerText="Responsable" width="100">
+                                        <h:outputText value="#{item.sic1persfuncresp.codIden}" />
                                     </p:column>
                             
                                     <p:column headerText="Estado Actual" width="120">
-                                        <h:outputText value="#{item.desEstaeven}" />
+                                        <h:outputText value="#{item.sic3evenesta.desEstaeven}" />
                                     </p:column>                           
                                     
                             
@@ -127,23 +131,14 @@
                                             <p:fileDownload value="#{utilController.descargarDocumento(item.sic1docu.idDocu)}" />
                                             <span class="glyphicon glyphicon-download-alt"></span>
                                         </h:commandLink>
-                                    </p:column>
+                                    </p:column>                                                                
                             
-                                    <p:column headerText="Fecha Notificación" width="100">  
-                                        <h:outputText value="#{item.sic1docu.fecDesde}" />
-                                    </p:column>
-                            
-                                    <p:column width="40">                                        
-                                    </p:column> 
-                            
-                                    <p:column width="40">                                        
-                                    </p:column> 
-                                    
-                                    <p:column width="40">                                        
-                                    </p:column> 
-                            
-                                    <p:column width="40">                                        
-                                    </p:column> 
+                                    <p:column width="90">                                        
+                                        <h:commandButton value="Ver Detalle">
+                                            <f:ajax execute="@this" render="form:lstDetDocumentos form:lstDetEventoTareas" listener="#{eventoController.obtenerDetalleEvento(item)}"/>
+                                        </h:commandButton>
+                                    </p:column>                            
+                                   
                                     
                                </p:dataTable>
 
@@ -163,7 +158,8 @@
                 <div class="row" style="padding: 10px 20px 20px 20px">
                                                     
                     <p:dataTable var="item" 
-                        value="#{eventoController.lstDetEventoTareas}" >
+                                 id="lstDetEventoTareas"
+                                 value="#{eventoController.lstDetEventoTareas}" >
 
                         <p:column headerText="Estado" width="80">
                             <h:outputText value="#{item.desEstaeven}" />
@@ -182,7 +178,7 @@
                         </p:column>
                         
                         <p:column headerText="Fecha Hasta" width="90">
-                            <h:outputText value="#{item.fecHastaestaeven=='2400-12-31'?'A la fecha':item.fecHastaestaeven}" />
+                            <h:outputText value="#{item.fecHastaestaeven=='2400-12-31 00:00:00.0'?'-':item.fecHastaestaeven}" />
                         </p:column>
                        
                    </p:dataTable>
@@ -204,6 +200,7 @@
                 <div class="row" style="padding: 10px 20px 20px 20px">
                 
                     <p:dataTable var="item" 
+                                 id="lstDetDocumentos"
                                  value="#{eventoController.lstDetDocumentos}" >
 
                         <p:column headerText="Tipo Documento" width="80">
@@ -251,6 +248,12 @@
             
             <a id="linkDialog" href="#" class="iframe"  style="display:none"/>
                 
+            
+             <script>
+                    $(window).load(function() {
+                        $(".loader").fadeOut("slow");
+                    });
+            </script>
             
         </ui:define>
     </ui:composition>

@@ -63,6 +63,7 @@ public class Sic1pers implements Serializable {
     private String[] arrIdpers; //Para consultar varios IdPers a la vez
     private Sic7persrol sic7persrol;
     private List<Sic7persrol> lstSic7persrol;
+    private String codIden;
     
 
     public Sic1pers() {
@@ -168,6 +169,16 @@ public class Sic1pers implements Serializable {
     public void setLstSic7persrol(List<Sic7persrol> lstSic7persrol) {
         this.lstSic7persrol = lstSic7persrol;
     }
+
+    public String getCodIden() {
+        return codIden;
+    }
+
+    public void setCodIden(String codIden) {
+        this.codIden = codIden;
+    }
+    
+    
     
 
     @Override

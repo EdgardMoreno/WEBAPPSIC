@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -66,7 +67,8 @@ public class EventoController  implements Serializable{
     private String strFecHasta;
     private String codEstaEven;
     private boolean flgActivarFiltro;
-    private Integer idEstaEven;    
+    private Integer idEstaEven;
+    
     
     /*PROPIEDADES*/
     
@@ -237,6 +239,10 @@ public class EventoController  implements Serializable{
     public void setIdEstaEven(Integer idEstaEven) {
         this.idEstaEven = idEstaEven;
     }
+
+    
+    
+    
     
     
     
@@ -361,37 +367,36 @@ public class EventoController  implements Serializable{
                 MessageUtil.addInfoMessage("No se obtuvieron resultados");
             
         }
-    }   
+    }    
     
-    public String obtenerDetalleExpediente(Integer idEven) throws Exception{        
-
-        
-        System.out.println("idEven:" + idEven);
-        
+    public String obtenerSubEventos(String codExpeLocal ) throws Exception{
+             
+                
         this.lstDetEvento = new ArrayList<>();
         this.lstDetDocumentos = new ArrayList<>();
         this.lstDetEventoTareas = new ArrayList<>();
         
-        //---------------
-        EventoServiceImpl objService = new EventoServiceImpl();
-        Sic1even objEven = new Sic1even();
-        objEven.setIdEven(new BigDecimal(idEven));
-        this.lstDetEvento = objService.obtExpedientes(objEven);
+        //-- obtener los eventos relacionados.
+        EventoServiceImpl objService = new EventoServiceImpl();       
+        this.lstDetEvento = objService.obtEventosRelacionados(codExpeLocal);
         
         if(this.lstDetEvento!= null && this.lstDetEvento.isEmpty()){
             MessageUtil.addInfoMessage("No se pudo obtener detalle del expediente.");
             return "";
         }
         
-        this.idPersAdmi = this.lstDetEvento.get(0).getSic1ideneven().getIdPers().intValue();
+        this.idPersAdmi = this.lstDetEvento.get(0).getSic1persadmi().getIdPers().intValue();
         this.idEvenExterno = null;
         
+        
         /*Obtener el seguimiento del expediente*/
-        this.lstDetEventoTareas = objService.obtTareasEvento(idEven);
+        //this.lstDetEventoTareas = objService.obtTareasEvento(idEven);
 
         /*Obtener documentos relacionados*/
-        DocumentoServiceImpl objDocuService = new DocumentoServiceImpl();
-        this.lstDetDocumentos = objDocuService.obtDocumentosXEvento(idEven);
+//        DocumentoServiceImpl objDocuService = new DocumentoServiceImpl();
+//        this.lstDetDocumentos = objDocuService.obtDocumentosXEvento(idEven);
+
+        this.obtenerDetalleEvento(this.lstDetEvento.get(0));
         
         MaestroCatalogoServiceImpl objMaeCataService = new MaestroCatalogoServiceImpl();
         this.desUrlPWA = objMaeCataService.obtUrlPWA(ConstantesSic.CONS_COD_VERSUDM_URLPWA);
@@ -400,6 +405,41 @@ public class EventoController  implements Serializable{
         
         return "faces/detalleExpediente?faces-redirect=true";
         //return "faces/detalleExpediente?cod_expe=" + idEven;
+    }
+    
+    public void obtenerDetalleEvento(Sic1even objEven) throws Exception{
+        
+        try{
+            
+            this.lstDetDocumentos = new ArrayList<>();
+            this.lstDetEventoTareas = new ArrayList<>();
+            
+            Integer idEven = objEven.getIdEven().intValue();
+            Integer idEvenPadre = objEven.getIdEventopadre().intValue();
+            
+            /*Obtener el seguimiento del expediente*/
+            EventoServiceImpl objService = new EventoServiceImpl();
+            this.lstDetEventoTareas = objService.obtTareasEvento(idEven);
+
+            /*Obtener documentos relacionados*/
+              DocumentoServiceImpl objDocuService = new DocumentoServiceImpl();
+            
+            if(Objects.equals(idEven, idEvenPadre)){
+                /*Obtener los requisitos*/
+                this.lstDetDocumentos = objDocuService.obtDocumentosXEvento(idEven);
+
+            }else{
+                
+                /*En caso los eventos sean diferentes se obtiene los requisitos del evento padre*/                
+                this.lstDetDocumentos.addAll(objDocuService.obtDocuSustentoXEvento(idEven));
+                this.lstDetDocumentos.addAll(objDocuService.obtDocuGeneTramiteXEvento(idEven));
+                this.lstDetDocumentos.addAll(objDocuService.obtRequisitosXEvento(idEvenPadre));
+            }
+            
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+        
     }
     
     /*Utilizado para obtener los parametros enviados desde una aplicacion externa, desde la url con 

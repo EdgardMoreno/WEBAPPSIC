@@ -7,10 +7,12 @@ package com.general.main;
 
 import com.general.dao.DaoDocumentoImpl;
 import com.general.dao.DaoEventoImpl;
+import com.general.dao.DaoMaquinaImpl;
 import com.general.dao.DaoPersonaImpl;
 import com.general.dao.DaoSoporte;
 import com.general.entity.Sic1even;
 import com.general.entity.Sic1pers;
+import com.general.entity.Sic1proditem;
 import com.general.entity.Sic1sclaseeven;
 import com.general.entity.Sic3docuesta;
 import com.general.entity.Sic3docuestaPK;
@@ -52,6 +54,17 @@ public class TestDao {
             //NOTIFICAR OFICIO
             try{
                 
+                if(true){
+                    
+                    DaoMaquinaImpl objDao = new DaoMaquinaImpl();
+                    Sic1proditem objItem = new Sic1proditem();
+                    objItem.setNumSerie("6847");
+                    objDao.obtMaquinasEnTramite(objItem);
+                    System.out.println("");
+                    
+                    
+                }
+                
                 if(false){
                     Sic5perspermPK objPersPK = new Sic5perspermPK();
                     objPersPK.setIdPers(2385);
@@ -70,7 +83,7 @@ public class TestDao {
                 if(false){
                     /*Obtener todos los documentos*/
                     DaoDocumentoImpl objDaodocu = new DaoDocumentoImpl();
-                    List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento(cnConexion, 5034, null);
+                    List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento(5034, null);
                 }
                 
                 if(false){
@@ -85,7 +98,7 @@ public class TestDao {
 
                     //Obtener los documentos.
                     DaoDocumentoImpl objDaodocu = new DaoDocumentoImpl();
-                    List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento(cnConexion, idEvento, 98);
+                    List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento( idEvento, 98);
 
                     for( Sic3evendocu obj : lstDocus){
 

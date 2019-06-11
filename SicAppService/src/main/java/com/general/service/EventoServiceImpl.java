@@ -16,6 +16,7 @@ import com.general.util.beans.UtilSic;
 import com.general.util.dao.DaoFuncionesUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,21 +35,23 @@ public class EventoServiceImpl {
         
     }    
     
-    public List<Sic1even> obtExpedientes(Sic1even even) throws Exception{
-        
+    public List<Sic1even> obtExpedientes(Sic1even objEven) throws Exception{        
         
         List<Sic1even> lstResu = new ArrayList<>();
         
-        try{
-            
+        try{            
             DaoEventoImpl objDao = new DaoEventoImpl();
-            lstResu = objDao.obtExpedientes(even);
-            
+            lstResu = objDao.obtExpedientes(objEven);            
         }catch(Exception e){
-            throw new Exception("Error: " + e.getMessage());
+            throw new Exception(e.getMessage());
         }
 
         return lstResu;
+    }
+    
+    public List<Sic1even> obtEventosRelacionados( String codExpe ) throws SQLException, Exception{
+        DaoEventoImpl objDao = new DaoEventoImpl();
+        return objDao.obtEventosRelacionados(codExpe);
     }
     
     public List<Sic5evenesta> obtTareasEvento(Integer idEven) throws Exception{
@@ -283,9 +286,115 @@ public class EventoServiceImpl {
         }catch(Exception e){            
             throw new Exception("Error: " + e.getMessage());            
         }
+    }    
+    
+    /**
+     * METODO QUE SIMULA LA EVALUACION DEL ABOGADO ( SEGUNDA PANTALLA DEL BPM)
+     * @param idEven
+     * @throws Exception 
+     */
+    public void evaluarExpedienteAbogado( Integer idEven, String codIdenAbogado) throws Exception{       
+                
+        Connection cnConexion = ConexionBD.obtConexion();
+        
+        try{
+            
+            System.out.println("============= evaluarExpedienteAbogado() ==============");
+            System.out.println("idEven: " + idEven);
+            
+            //Obtener los documentos.
+            DaoDocumentoImpl objDaodocu = new DaoDocumentoImpl();
+            List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento( idEven, 98);
+            swServicioProxy objswServicioProxy = new swServicioProxy();
+            
+            for( Sic3evendocu obj : lstDocus){
+                
+                Integer idDocu = obj.getSic1docu().getIdDocu().intValue();
+                String strCodStipodocu = obj.getSic1docu().getSic1stipodocu().getCodStipodocu();
+                String strCodEstaDocu = obj.getSic1docu().getSic3docuesta().getCodEstadocu();
+
+                System.out.println("idDocu: " + idDocu);
+                System.out.println("strCodStipodocu: " + strCodStipodocu);
+                System.out.println("strCodEstaDocu: " + strCodEstaDocu);
+                System.out.println("desDocu:" + obj.getSic1docu().getDesDocu());
+                
+                /*VI_SICESTATERCAPP (En Aprobacion 3er Nivel) => Estado que tiene el documento cuando esta siendo evaluado por la DIRECCION GENERAL*/
+                if((strCodStipodocu.contains("VI_SICSTIPODOCUINFOLEGA") || strCodStipodocu.contains("VI_SICSTIPODOCUINFOTECN")) &&
+                        strCodEstaDocu.equalsIgnoreCase("VI_SICESTAMODISN")){
+                    
+                    System.out.println("COD_STIPODOCU" + obj.getSic1docu().getSic1stipodocu().getCodStipodocu());                    
+                    System.out.println("COD_ESTA:" + obj.getSic1docu().getSic3docuesta().getCodEstadocu());
+                    
+                    //reemplazar en la base de datos
+                    String titulo = obj.getSic1docu().getDesTitulo();
+                    String[] temp = titulo.split("XXXXX");
+                    
+                    String strCodExpe = obj.getSic1even().getCodExpe();
+                    String strDesLocaUri = obj.getSic1docu().getSic1docubina().getDesLocauri();
+
+                    if(!temp[0].equals(titulo)){
+                        
+                        //Numerar Resolucion u Oficio
+                        String strNumero = objDaodocu.obtNumeracionSistemaNormativo(cnConexion, idEven, idDocu);
+                        
+                        String nuevoTitulo = temp[0] + strNumero + temp[1];
+                        String strContentID = UtilSic.obtenerCodigoContent(strCodExpe, "");
+                        
+                        System.out.println("ID_DOCU: " + idDocu);
+                        System.out.println("nuevoTitulo: " + nuevoTitulo);
+                        System.out.println("strDesLocaUri: " + strDesLocaUri);
+                        System.out.println("strContentID: " + strContentID);                        
+
+                        //Actualizar el numero en la BD
+                        objDaodocu.actualizarNumeroResolutivo(cnConexion, strContentID, nuevoTitulo, idDocu);
+                        
+                        DateFormat df = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy",new Locale("es","ES"));                        
+                        String strArchivo = new String(objswServicioProxy.ejecutarGetFileByName(strDesLocaUri));
+                        strArchivo = (strArchivo.replace("<NUM-INTERNO>", strNumero)).replace("<FEC-INTERNO>", df.format(UtilClass.getCurrentDateTime()));                        
+                        
+                        byte[] resultado = strArchivo.getBytes();
+
+                        System.out.println("DES_NOMREAL: " + obj.getSic1docu().getSic1docubina().getDesNombreal());
+                        
+                        //SUBIENDO AL UCM, ARCHIVO CON EL NRO DE DOCUMENTO Y LOS CODIGOS DE AUTORIZACION DE LAS MAQUINAS
+                        objswServicioProxy.checkin(strContentID, nuevoTitulo, codIdenAbogado, resultado, obj.getSic1docu().getSic1docubina().getDesNombreal());
+                        //filaDocumento.setAttribute("DES_LOCAURI_Attr", strContentID);
+
+                    }
+                }
+                                
+                if((strCodStipodocu.contains("VI_SICSTIPODOCUINFOTECN") || strCodStipodocu.contains("VI_SICSTIPODOCUINFOLEGA")) && 
+                        strCodEstaDocu.equalsIgnoreCase("VI_SICESTAMODISN")) {
+                                        
+                    //CAMBIAR DE ESTADO AL DOCUMENTO. INFORME
+                    String strCodEstaDocuTmp = "VI_SICESTAMODICN";
+                    
+                    objDaodocu.cambiarEstaDocu(  cnConexion
+                                                ,String.valueOf(idEven)
+                                                ,idDocu
+                                                ,null//strCodRol
+                                                ,"APP" //strCodDecision
+                                                ,strCodStipodocu
+                                                ,strCodEstaDocuTmp);
+                
+                }                
+            }
+            
+            cnConexion.commit();
+            
+        }catch(Exception ex){
+            cnConexion.rollback();
+            throw new Exception(ex.getMessage());
+            
+        }
     }
     
     
+    /**
+     * METODO QUE SIMULA LA EVALUACION DEL DIRECTOR GENERAL
+     * @param idEven
+     * @throws Exception 
+     */
     public void evaluarExpedienteDirectorGeneral( Integer idEven) throws Exception{
         
         String strCodigoAuto = null;
@@ -300,7 +409,7 @@ public class EventoServiceImpl {
             
             //Obtener los documentos.
             DaoDocumentoImpl objDaodocu = new DaoDocumentoImpl();
-            List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento(cnConexion, idEven, 98);
+            List<Sic3evendocu> lstDocus = objDaodocu.obtDocumentosXEvento( idEven, 98);
             swServicioProxy objswServicioProxy = new swServicioProxy();
             
             DaoEventoImpl objDaoEven = new DaoEventoImpl();
@@ -314,6 +423,7 @@ public class EventoServiceImpl {
                 System.out.println("idDocu: " + idDocu);
                 System.out.println("strCodStipodocu: " + strCodStipodocu);
                 System.out.println("strCodEstaDocu: " + strCodEstaDocu);
+                System.out.println("desDocu:" + obj.getSic1docu().getDesDocu());
                 
                 /*VI_SICESTATERCAPP (En Aprobacion 3er Nivel) => Estado que tiene el documento cuando esta siendo evaluado por la DIRECCION GENERAL*/
                 if((strCodStipodocu.contains("VI_SICTIPODOCURESO") || strCodStipodocu.contains("VI_SICSTIPODOCUOFICOBSE")) &&

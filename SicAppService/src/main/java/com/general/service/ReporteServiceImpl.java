@@ -7,10 +7,6 @@ package com.general.service;
 
 import com.general.dao.DaoReporteImpl;
 import com.general.util.beans.RptPlantilla;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +32,14 @@ public class ReporteServiceImpl {
         
     }
     
-    public List<RptPlantilla>  listarExpedientesXResponsable( String strFecDesde, String strFecHasta) throws Exception{
+    /**
+     * METODO QUE LISTA LA CANTIDAD DE EXPEDIENTES EN TRAMITES Y RESUELTOS POR FUNCIONARIO
+     * @param fecDesde
+     * @param fecHasta
+     * @return
+     * @throws Exception 
+     */
+    public List<RptPlantilla>  listarExpedientesXResponsable(String strFecDesde, String strFecHasta) throws Exception{
         
         List<RptPlantilla> lstResult = new ArrayList<>();
                 
@@ -46,7 +49,30 @@ public class ReporteServiceImpl {
             lstResult = objDao.listarExpedientesXResponsable(strFecDesde, strFecHasta);
             
         } catch (Exception e){
-            throw new Exception("generarRptExpedientesXResponsable()-ERROR:" + e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+        
+        return lstResult;
+    }
+    
+    /**
+     * METODO QUE LISTA LA CANTIDAD DE EXPEDIENTES QUE TIENE CADA FUNCIONARIO EN SU BANDEJA DEL BPM
+     * @param fecDesde
+     * @param fecHasta
+     * @return
+     * @throws Exception 
+     */
+    public List<RptPlantilla>  objResumenExpedientesEnEvaluacionXFuncionario(String strFecDesde, String strFecHasta) throws Exception{
+        
+        List<RptPlantilla> lstResult = new ArrayList<>();
+
+        try {
+            
+            DaoReporteImpl objDao = new DaoReporteImpl();
+            lstResult = objDao.objResumenExpedientesEnEvaluacionXFuncionario(strFecDesde, strFecHasta);
+            
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
         }
         
         return lstResult;

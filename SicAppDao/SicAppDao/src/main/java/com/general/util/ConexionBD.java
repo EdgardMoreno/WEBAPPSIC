@@ -209,7 +209,7 @@ public class ConexionBD implements Serializable{
             strUsuario      = "SICUSER";
             strContrasenia  = "p2r51n42018";
             
-//            strCadenaCon    = "jdbc:oracle:thin:@172.16.0.149:1525/MINCETUR";
+//            strCadenaCon    = "jdbc:oracle:thin:@dborap-scan:1525/MINCETUR";
 //            strUsuario      = "SICDBA";
 //            strContrasenia  = "WFYo7B8jA8UQcsvBsoJ9";
             

@@ -8,6 +8,7 @@ package com.general.dao;
 import com.general.entity.Sic1docu;
 import com.general.entity.Sic1docubina;
 import com.general.entity.Sic1even;
+import com.general.entity.Sic1general;
 import com.general.entity.Sic1ideneven;
 import com.general.entity.Sic1pers;
 import com.general.entity.Sic1sclaseeven;
@@ -329,7 +330,161 @@ public class DaoEventoImpl implements Serializable{
         }
         
         return lista;
-    }  	
+    }  
+    
+    public List<Sic1even> obtEventosRelacionados( String codExpe ) throws SQLException, Exception{
+        
+        CallableStatement statement = null;
+        ResultSet rsConsulta = null;
+        List<Sic1even> lista = new ArrayList<>();        
+        Connection cnConexion = null;
+                
+        try {  
+            
+                cnConexion = ConexionBD.obtConexion();
+            
+                String sql = " SELECT\n" +
+                    "        T1.ID_EVEN\n" +
+                    "       ,T1.ID_STIPOEVEN\n" +
+                    "       ,V1.COD_STIPOEVEN \n" +
+                    "       ,UPPER(V1.DES_STIPOEVEN) AS DES_STIPOEVEN\n" +
+                    "       ,T1.COD_EXPE\n" +
+                    "       ,T1.FEC_CREACION\n" +
+                    "       ,T1.FEC_DESDE AS FEC_ENVIO\n" +
+                    "       ,T1.DES_NOTAS\n" +
+
+                    "       ,PERSADMI.ID_PERS AS ID_PERSADMIN\n" +
+                    "       ,PERSADMI.DES_PERS AS DES_PERSADMIN\n" +
+
+                    "       ,T3.ID_SCLASEEVEN AS ID_PROCEDIMIENTO\n" +
+                    "       ,T3.DES_SCLASEEVEN AS DES_PROCEDIMIENTO\n" +
+
+                    "       ,BINA.ID_DOCU AS ID_DOCURESO\n" +
+                    "       ,BINA.DES_TITULO AS DES_TITULORD\n" +
+                    "       ,BINA.NUM_DOCUBINA AS NUM_NUMERORD\n" +
+                    
+                    "       ,VIESTA.ID_ESTA AS ID_ESTAEVEN\n" +
+                    "       ,VIESTA.COD_ESTA AS COD_ESTAEVEN\n" +
+                    "       ,UPPER(VIESTA.DES_ESTA) AS DES_ESTAEVEN\n" +
+
+                    "       ,EVENPERS.ID_PERS AS ID_PERSFUNC " +
+                    "       ,PERSFUNC.DES_PERS AS DES_PERSFUNC " +
+                    "       ,IDENPERSFUNC.COD_IDEN AS COD_IDENPERSFUNC " +
+                    "       ,NVL(T1.FLG_SUBEVENTO,0) AS FLG_SUBEVENTO" +
+                    "       ,NVL(RELEVEN.ID_EVENREL,T1.ID_EVEN ) AS ID_EVENPADRE " + 
+                    
+                    " FROM sicdba.SIC1EVEN T1\n" +
+                    " JOIN SICDBA.VI_SICSTIPOEVEN V1 ON V1.ID_STIPOEVEN = T1.ID_STIPOEVEN\n" +
+                    " JOIN sicdba.SIC1IDENEVEN T5 ON T5.ID_EVEN = T1.ID_EVEN\n" +
+                    " JOIN sicdba.SIC1PERS PERSADMI ON PERSADMI.ID_PERS = T5.ID_PERS\n" +
+                    " JOIN sicdba.SIC1SCLASEEVEN T3 ON T3.ID_SCLASEEVEN = T1.ID_SCLASEEVEN\n" +
+                    " JOIN sicdba.SIC3EVENESTA ESTAEVEN ON ESTAEVEN.ID_EVEN = T1.ID_EVEN\n" +
+                    "                                     AND ESTAEVEN.FEC_HASTA = TO_DATE('31/12/2400','DD/MM/YYYY')\n" +
+                    " LEFT JOIN sicdba.VI_SICESTA VIESTA ON VIESTA.ID_ESTA = ESTAEVEN.ID_ESTAEVEN\n" +
+                    " LEFT JOIN SIC1DOCUBINA BINA ON BINA.ID_DOCU = T1.ID_DOCURESO\n" +
+                    "                               AND BINA.NUM_DOCUBINA IS NOT NULL\n" +
+                    " LEFT JOIN SIC3EVENPERS EVENPERS ON EVENPERS.ID_EVEN = T1.ID_EVEN\n" +
+                    "                               AND EVENPERS.FEC_HASTA = TO_DATE('31/12/2400','DD/MM/YYYY')\n" +
+                    "                               AND EVENPERS.ID_TROLPERS = 4382\n" +
+                    " LEFT JOIN SIC1PERS PERSFUNC ON PERSFUNC.ID_PERS = EVENPERS.ID_PERS\n" +
+                    " LEFT JOIN SIC1IDENPERS IDENPERSFUNC ON IDENPERSFUNC.ID_PERS = PERSFUNC.ID_PERS\n" +
+                    "                                       AND IDENPERSFUNC.ID_TIPOIDEN = 4023\n" +
+                    
+                    " LEFT JOIN SIC3EVENEVEN RELEVEN ON RELEVEN.ID_EVEN = T1.ID_EVEN " +                      
+                    "              AND RELEVEN.FEC_HASTA = TO_DATE('31/12/2400','DD/MM/YYYY') " +
+                        
+                    " WHERE T1.COD_EXPE = '" + codExpe + "' ";
+
+                sql += " ORDER BY ID_EVEN ";
+                
+                System.out.println("sql: " + sql);
+
+                statement = cnConexion.prepareCall(sql,
+                                                   ResultSet.TYPE_SCROLL_SENSITIVE,
+                                                   ResultSet.CONCUR_READ_ONLY,
+                                                   ResultSet.CLOSE_CURSORS_AT_COMMIT);
+
+                rsConsulta = statement.executeQuery();
+                Sic1even objEven;                
+
+                while(rsConsulta.next()){
+
+                    Sic1sclaseeven objSclaseeven = new Sic1sclaseeven();
+                    objSclaseeven.setIdSclaseeven(rsConsulta.getBigDecimal("ID_PROCEDIMIENTO"));
+                    objSclaseeven.setDesSclaseeven(rsConsulta.getString("DES_PROCEDIMIENTO"));
+
+                    //ADMINISTRADO
+                    Sic1pers objSic1persadmi = new Sic1pers();
+                    objSic1persadmi.setIdPers(rsConsulta.getBigDecimal("ID_PERSADMIN"));
+                    objSic1persadmi.setDesPers(rsConsulta.getString("DES_PERSADMIN"));                    
+                    
+                    //DOCUMENTO                    
+                    Sic1docubina objDocubina = new Sic1docubina();
+                    objDocubina.setNumDocubina(rsConsulta.getString("NUM_NUMERORD"));
+                    
+                    Sic1docu objDocu = new Sic1docu();
+                    objDocu.setIdDocu(rsConsulta.getBigDecimal("ID_DOCURESO"));
+                    objDocu.setDesTitulo(rsConsulta.getString("DES_TITULORD"));                    
+                    objDocu.setSic1docubina(objDocubina);                    
+                    
+                    //FUNCIONARIO
+                    Sic1pers objSic1persfuncresp = new Sic1pers();
+                    objSic1persfuncresp.setIdPers(rsConsulta.getBigDecimal("ID_PERSFUNC"));
+                    objSic1persfuncresp.setDesPers(rsConsulta.getString("DES_PERSFUNC"));
+                    objSic1persfuncresp.setCodIden(rsConsulta.getString("COD_IDENPERSFUNC"));
+                    
+                    //SUBTIPOEVEN
+                    Sic1general objStipoeven = new Sic1general();
+                    objStipoeven.setIdGeneral(rsConsulta.getBigDecimal("ID_STIPOEVEN"));
+                    objStipoeven.setCodValorgeneral(rsConsulta.getString("COD_STIPOEVEN"));
+                    objStipoeven.setDesGeneral(rsConsulta.getString("DES_STIPOEVEN"));
+                    
+                    //ESTADO EVENTO                    
+                    Sic3evenesta sic3evenesta = new Sic3evenesta();
+                    sic3evenesta.setDesEstaeven(rsConsulta.getString("DES_ESTAEVEN"));
+                    sic3evenesta.setCodEstaeven(rsConsulta.getString("COD_ESTAEVEN"));
+                    
+                    //EVENTO
+                    objEven = new Sic1even();
+                    objEven.setIdEven(rsConsulta.getBigDecimal("ID_EVEN"));
+                    objEven.setIdEventopadre(rsConsulta.getBigDecimal("ID_EVENPADRE"));
+                    objEven.setCodExpe(rsConsulta.getString("COD_EXPE"));
+                    objEven.setDesNotas(rsConsulta.getString("DES_NOTAS"));
+                    objEven.setFecCreacion(rsConsulta.getTimestamp("FEC_CREACION"));
+                    objEven.setFecDesde(rsConsulta.getTimestamp("FEC_ENVIO"));
+                    objEven.setIdEven(rsConsulta.getBigDecimal("ID_EVEN"));
+                    objEven.setSic1persfuncresp(objSic1persfuncresp);
+                    objEven.setSic1docu(objDocu);
+                    objEven.setSic1persadmi(objSic1persadmi);
+                    objEven.setIdSclaseeven(objSclaseeven);
+                    objEven.setDesEstaeven(rsConsulta.getString("DES_ESTAEVEN"));
+                    objEven.setObjStipoeven(objStipoeven);
+                    objEven.setFlgSubevento(rsConsulta.getInt("FLG_SUBEVENTO"));
+                    
+                    lista.add(objEven);
+                }
+        
+        } catch (SQLException e){
+            throw new SQLException("obtEventosRelacionados()-ERROR:" + e.getMessage());
+        } catch (Exception e){
+            throw new Exception("obtEventosRelacionados()-ERROR:" + e.getMessage());
+        }finally{
+            
+            if(statement != null){
+                statement.close();
+            }
+            
+            if(rsConsulta != null){
+                rsConsulta.close();
+            }
+            
+            if(cnConexion != null){
+                cnConexion.close();
+            }
+        }
+        
+        return lista;
+    }  
     
     
     public List<Sic5evenesta> obtTareasEvento ( Connection cnConexion, Integer idEven ) throws SQLException, Exception{
@@ -356,15 +511,15 @@ public class DaoEventoImpl implements Serializable{
                         "          ,T0.COD_TDETTAREA " +
                         "          ,T0.DES_TAREA " +                        
                         "          ,T0.NUM_DIAS " +                        
-                        "   FROM SICDBA.SIC1IDENACTIVIDAD T1 "                           +
-"                           JOIN SICDBA.SIC1IDENTAREA IDENT ON IDENT.ID_ACTIVIDAD = T1.ID_ACTIVIDAD " +
-"                           JOIN SICDBA.SIC5EVENESTA T0 ON T0.ID_EVEN = T1.ID_EVEN " +
-"                                                          AND T0.ID_TAREA = IDENT.ID_TAREA  " +
-"                           JOIN SICDBA.SIC8TDETTAREA T6 ON T6.ID_TDETTAREA = T0.ID_TDETTAREA" +
-"                           LEFT JOIN SICDBA.SIC3TAREAPERS T3 ON T3.ID_TAREA = IDENT.ID_TAREA " +
-"                           LEFT JOIN SICDBA.VI_SICPERSBPM PERS ON PERS.ID_PERS = T3.ID_PERS " +
-"                                                               AND PERS.ID_TROLPERS = T3.ID_TROLPERS " +
-                        "   WHERE T1.ID_EVEN =  " + idEven ;
+                        "   FROM SICDBA.SIC1IDENACTIVIDAD T1 " +
+                        "   JOIN SICDBA.SIC1IDENTAREA IDENT ON IDENT.ID_ACTIVIDAD = T1.ID_ACTIVIDAD " +
+                        "   JOIN SICDBA.SIC5EVENESTA T0 ON T0.ID_EVEN = T1.ID_EVEN " +
+                        "                                  AND T0.ID_TAREA = IDENT.ID_TAREA   " +
+                        "   JOIN SICDBA.SIC8TDETTAREA T6 ON T6.ID_TDETTAREA = T0.ID_TDETTAREA " +
+                        "   LEFT JOIN SICDBA.SIC3TAREAPERS T3 ON T3.ID_TAREA = IDENT.ID_TAREA " +
+                        "   LEFT JOIN SICDBA.VI_SICPERSBPM PERS ON PERS.ID_PERS = T3.ID_PERS  " +
+                        "                                       AND PERS.ID_TROLPERS = T3.ID_TROLPERS " +
+                        "   WHERE T0.ID_EVEN =  " + idEven ;
                         
                                 
                 sql += " ORDER BY T1.ID_ACTIVIDAD ASC";
