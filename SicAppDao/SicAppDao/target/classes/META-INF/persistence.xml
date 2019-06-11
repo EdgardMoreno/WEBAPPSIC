@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="JPA_PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.general.entity.Sic1docu</class>
+    <class>com.general.entity.Sic1docubina</class>
+    <class>com.general.entity.Sic1general</class>
+    <class>com.general.entity.Sic1pers</class>
+    <class>com.general.entity.Sic1idendocu</class>
+    <class>com.general.entity.Sic1prod</class>
+    <class>com.general.entity.Sic1proditem</class>
+    <class>com.general.entity.Sic3proditempers</class>
+    <class>com.general.entity.Sic1tarea</class>
+    <class>com.general.entity.Sic3evendocu</class>
+    <class>com.general.entity.Sic3proditemdocu</class>
+    <class>com.general.entity.Sic3proddocu</class>
+    <class>com.general.entity.Sic1sclaseeven</class>
+    <class>com.general.entity.Sic1even</class>
+    <class>com.general.entity.Sic8trela</class>
+    <class>com.general.entity.Sic1idenpers</class>
+    <class>com.general.entity.Sic3evenpers</class>
+    <class>com.general.entity.Sic3docuesta</class>
+    <class>com.general.entity.Sic3evenesta</class>
+    <class>com.general.entity.Sic1codiauto</class>
+    <class>com.general.entity.Sic1ideneven</class>
+    <class>com.general.entity.Sic1persindi</class>
+    <class>com.general.entity.Sic7persrol</class>
+    <class>com.general.entity.Sic3persdocu</class>
+    <class>com.general.entity.Sic3perspers</class>
+    <class>com.general.entity.Sic5evensoli</class>
+    <class>com.general.entity.Sic5evenesta</class>
+    <class>com.general.entity.Sic1prodmemo</class>
+    <class>com.general.entity.Sic3persesta</class>
+    <class>com.general.entity.Sic1stipocodiauto</class>
+    <class>com.general.entity.Sic1stipodocu</class>
+    <class>com.general.entity.Sic1lugar</class>
+    <class>com.general.entity.Sic1lugarsala</class>
+    <class>com.general.entity.Sic1idenlugar</class>
+    <class>com.general.entity.Sic1lugardire</class>
+    <class>com.general.views.ViComsala</class>
+    <class>com.general.entity.Sic3prodpers</class>
+    <class>com.general.entity.Sic1prodprog</class>
+    <class>com.general.entity.Sic5persperm</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@172.16.0.49:1521:PREPRODU"/>
+      <property name="javax.persistence.jdbc.user" value="SICDBA"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.password" value="Oracle01"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

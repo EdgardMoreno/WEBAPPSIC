@@ -174,4 +174,97 @@ public class DaoReporteImpl {
         return lstResult;
         
     }
+    
+    
+    /**
+     * METODO QUE LISTA LA CANTIDAD DE EXPEDIENTES QUE TIENE CADA FUNCIONARIO EN SU BANDEJA DEL BPM
+     * @param fecDesde
+     * @param fecHasta
+     * @return
+     * @throws SQLException
+     * @throws Exception 
+     */
+    public List<RptPlantilla> objResumenExpedientesEnEvaluacionXFuncionario(String strFecDesde, String strFecHasta) throws SQLException, Exception{
+        
+        List<RptPlantilla> lstResult = new ArrayList<>();
+        CallableStatement callStatement = null;
+        ResultSet rsConsulta = null;        
+        Connection cnConexion = null;
+        Integer numFecDesde = 0;
+        Integer numFecHasta = 0;
+                
+        try {
+            
+             if(strFecDesde == null || strFecDesde.trim().length() == 0)
+                numFecDesde = UtilClass.getObtFecIni_YYYYMMDD();
+            else 
+                numFecDesde = UtilClass.convertDateToNumber(UtilClass.convertStringToDate(strFecDesde)).intValue();
+            
+            if(strFecHasta == null || strFecHasta.trim().length() == 0)
+                numFecHasta = UtilClass.getObtFecInf_YYYYMMDD();
+            else 
+                numFecHasta = UtilClass.convertDateToNumber(UtilClass.convertStringToDate(strFecHasta)).intValue();
+            
+            cnConexion = ConexionBD.obtConexion();
+            
+            String sql = " SELECT  DECODE(COD_NUMTUPA,NULL,'NO TUPA','TUPA') AS DES_TUPA\n" +
+                            "       ,PERS.ID_PERS\n" +
+                            "       ,PERS.DES_PERS \n" +
+                            "       ,CLAS.ID_SCLASEEVEN  \n" +
+                            "       ,UPPER(CLAS.DES_SCLASEEVEN) AS DES_PROCEDIMIENTO\n" +
+                            "       ,COUNT(1) AS NUM_CANTIDAD \n" +                            
+                            
+                            " FROM SICDBA.SIC1EVEN T1\n" +
+                            " JOIN SICDBA.SIC1IDENACTIVIDAD T3 ON T3.ID_EVEN = T1.ID_EVEN\n" +
+                            " JOIN SICDBA.SIC1IDENTAREA T5 ON T5.ID_ACTIVIDAD = T3.ID_ACTIVIDAD\n" +
+                            " JOIN SICDBA.SIC3TAREAPERS T4 ON T4.ID_TAREA = T5.ID_TAREA\n" +
+                            "                             AND T4.FEC_HASTA = TO_DATE('31/12/2400','DD/MM/YYYY') \n" +
+                            " JOIN SICDBA.SIC1PERS PERS ON PERS.ID_PERS = T4.ID_PERS\n" +
+                            " JOIN SICDBA.SIC1SCLASEEVEN CLAS ON CLAS.ID_SCLASEEVEN = T1.ID_SCLASEEVEN\n" +
+                            " JOIN SICDBA.SIC3EVENESTA T2 ON T1.ID_EVEN = T2.ID_EVEN \n" +
+                            " JOIN SICDBA.VI_SICESTA V1 ON V1.ID_ESTA = T2.ID_ESTAEVEN\n" +
+                            
+                            " WHERE T2.FEC_HASTA = TO_DATE('31/12/2400','DD/MM/YYYY') \n" +
+                            "    AND V1.COD_ESTA IN ('VI_SICESTATRAM') \n" +
+                            "    AND T1.ID_EVEN NOT IN (SELECT ID_EVEN FROM SICDBA.SIC1IDENEVEN WHERE ID_PERS = 2397)   /*Se excluye DGJCMT*/\n" +
+                            "    AND CLAS.ID_SCLASEEVEN  <> 25 /*se excluje fiscalizacion*/\n" +
+                            "    AND T5.ID_TDETTAREA = (SELECT ID_TDETTAREA FROM SICDBA.SIC8TDETTAREA WHERE COD_TDETTAREA = 'SEGUI.REVISION')\n" +
+                            "    --AND TO_NUMBER(TO_CHAR(T2.FEC_DESDE,'YYYYMMDD')) BETWEEN   numFecDesde   AND   numFecHasta                              \n" +
+                            " GROUP BY  DECODE(COD_NUMTUPA,NULL,'NO TUPA','TUPA')  \n" +
+                            "       ,CLAS.DES_SCLASEEVEN  \n" +
+                            "       ,PERS.DES_PERS  \n" +
+                            "       ,PERS.ID_PERS  \n" +
+                            "       ,CLAS.ID_SCLASEEVEN  \n" +
+                            " ORDER BY PERS.DES_PERS, DES_TUPA  ";
+        
+             callStatement = cnConexion.prepareCall( sql,
+                                                 ResultSet.TYPE_SCROLL_SENSITIVE,
+                                                 ResultSet.CONCUR_READ_ONLY,
+                                                 ResultSet.CLOSE_CURSORS_AT_COMMIT);
+
+            rsConsulta = callStatement.executeQuery();            
+            while(rsConsulta.next()){
+                 
+                RptPlantilla objRpt = new RptPlantilla();
+                objRpt.setDesTupa(rsConsulta.getString("DES_TUPA"));
+                objRpt.setIdFuncionario(rsConsulta.getInt("ID_PERS"));
+                objRpt.setDesFuncionario(rsConsulta.getString("DES_PERS"));
+                objRpt.setIdProcedimiento(rsConsulta.getInt("ID_SCLASEEVEN"));
+                objRpt.setDesProcedimiento(rsConsulta.getString("DES_PROCEDIMIENTO"));
+                objRpt.setNumCantidad(rsConsulta.getDouble("NUM_CANTIDAD"));                
+                lstResult.add(objRpt);
+            }
+
+        } catch (SQLException e){
+            throw new SQLException(e.getMessage());
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }finally{
+            
+            UtilSic.cerrarConexiones(callStatement, rsConsulta, cnConexion);
+        }
+         
+        return lstResult;
+        
+    }
 }
