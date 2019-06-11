@@ -121,7 +121,7 @@ public class MasterPageController implements Serializable{
             objController.setDesTitulopagina(desTituloPagina);
             objController.setFlgActivarFiltro(true);
             
-        }else if (desNombrePagina.equalsIgnoreCase("faces/rptExpeAtendidos")){
+        }else if (desNombrePagina.equalsIgnoreCase("faces/rptExpeAtendidos") || desNombrePagina.equals("faces/rptExpeEnEvaluacion")){
             
             int flgPermiso = 0;
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
