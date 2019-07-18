@@ -205,9 +205,9 @@ public class ConexionBD implements Serializable{
 //            strContrasenia = "l5c1q5123";
             
             /*PRODUCCION*/
-            strCadenaCon    = "jdbc:oracle:thin:@dborap-scan:1525/MINCETUR";
-            strUsuario      = "SICUSER";
-            strContrasenia  = "p2r51n42018";
+//            strCadenaCon    = "jdbc:oracle:thin:@dborap-scan:1525/MINCETUR";
+//            strUsuario      = "SICUSER";
+//            strContrasenia  = "p2r51n42018";
             
 //            strCadenaCon    = "jdbc:oracle:thin:@dborap-scan:1525/MINCETUR";
 //            strUsuario      = "SICDBA";

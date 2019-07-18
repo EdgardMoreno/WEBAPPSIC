@@ -98,11 +98,11 @@
                                     </p:column>
                             
                                     <p:column headerText="Nro. Expediente" width="90">
-                                        <h:outputText value="#{item.codExpe}" />
+                                        <h:outputLabel value="#{item.codExpe}" />
                                     </p:column>
                             
                                     <p:column headerText="Tipo" width="140" style="text-align: center">
-                                        <h:outputText value="#{item.objStipoeven.desGeneral}" />
+                                        <h:outputLabel value="#{item.objStipoeven.desGeneral}" />
                                     </p:column>
                             
                                     <p:column headerText="Procedimiento" >
@@ -170,7 +170,7 @@
                         </p:column>
                         
                         <p:column headerText="Tarea" >
-                            <h:outputText style="color:#{item.codTdettarea == 'SEGUI.REJECT'?'#FF0000':'#000000'}" value="#{item.desTarea}" />
+                            <h:outputText escape="false" style="color:#{item.codTdettarea == 'SEGUI.REJECT'?'#FF0000':'#000000'}" value="#{item.desTarea}" />
                         </p:column>
 
                         <p:column headerText="Fecha Desde" width="90">

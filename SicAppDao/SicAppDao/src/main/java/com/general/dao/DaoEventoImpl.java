@@ -460,6 +460,7 @@ public class DaoEventoImpl implements Serializable{
                     objEven.setDesEstaeven(rsConsulta.getString("DES_ESTAEVEN"));
                     objEven.setObjStipoeven(objStipoeven);
                     objEven.setFlgSubevento(rsConsulta.getInt("FLG_SUBEVENTO"));
+                    objEven.setSic3evenesta(sic3evenesta);
                     
                     lista.add(objEven);
                 }

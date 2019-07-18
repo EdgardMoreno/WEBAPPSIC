@@ -45,13 +45,13 @@ public class TestService {
         // TODO code application logic here        
         try{
             
-            if(false){
+            if(true){
                 
-                reemplazarDocumentoFirmado(  "978640"
-                                            ,"GCARBAJAL"
-                                            ,"PWIEXP978640141646131"
-                                            ,"ResolucionDirectoral(favorable) Nro 2065-2016-MINCETUR/VMT/DGJCMT-dsolis - Firmado"
-                                            ,"RD N° 2065-2016_EXP 978640.pdf");
+                reemplazarDocumentoFirmado(  "1161389"
+                                            ,"calmiron"
+                                            ,"PWIEXP1161389103926494"
+                                            ,"ResolucionDirectoral_EXP_1161389(favorable) Nro 7012 - 2018-2018-MINCETUR/VMT/DGJCMT-dsolis - Firmado"
+                                            ,"RD 7012-2018.pdf");
             }
             
             if(false){
@@ -97,7 +97,7 @@ public class TestService {
             }
             
             //// NOTIFICAR EXPEDIENTES PERDIDOS CON ESTADO DE RESOLUCION U OFICIO "POR FIRMAR"
-            if(true){
+            if(false){
                 
                 Integer intIdEven = 4940;
                 Integer intIdDocuOriginal = 25682;
